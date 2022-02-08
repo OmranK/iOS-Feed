@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Select Xcode latest
-        run: sudo xcode-select -switch /Applications/Xcode_13.12.1.app
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_13.2.1.app
 
       - name: Build and Test
         run: xcodebuild clean build test -project FeedModule/FeedModule.xcodeproj -scheme "CI"
