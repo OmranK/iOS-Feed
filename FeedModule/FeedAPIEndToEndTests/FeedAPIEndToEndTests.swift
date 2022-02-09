@@ -24,7 +24,7 @@ class FeedAPIEndToEndTests: XCTestCase {
             XCTAssertEqual(items[7], expectedItem(at: 7))
             
         case let .failure(error)?:
-            XCTFail("Expected successful feed result,, got \(error) instead")
+            XCTFail("Expected successful feed result, got \(error) error instead")
         default:
             XCTFail("Expected successful feed result, got no result instead.")
         }
@@ -46,7 +46,7 @@ class FeedAPIEndToEndTests: XCTestCase {
             receivedResult = result
             expect.fulfill()
         }
-        wait(for: [expect], timeout: 5.0)
+        wait(for: [expect], timeout: 10.0)
         return receivedResult
     }
     
