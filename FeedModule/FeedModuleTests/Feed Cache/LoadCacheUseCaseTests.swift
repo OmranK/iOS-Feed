@@ -94,6 +94,19 @@ class LoadCacheUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
+
+    func test_load_hasNoSideEffectsOnValidNonExpiredCacheRetrieval() {
+        let feed = uniqueImageFeed()
+        let fixedCurrentDate = Date()
+        let expiredTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+        
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        sut.load { _ in }
+        store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
     
     func test_load_deletesCacheOnMinimumExpiredCache() {
         let feed = uniqueImageFeed()
@@ -120,20 +133,6 @@ class LoadCacheUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
-
-    func test_load_deosNotDeleteCacheOnValidNonExpiredCache() {
-        let feed = uniqueImageFeed()
-        let fixedCurrentDate = Date()
-        let expiredTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
-        
-        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        
-        sut.load { _ in }
-        store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
-        
-        XCTAssertEqual(store.receivedMessages, [.retrieve])
-    }
-    
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let store = FeedStoreSpy()
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
