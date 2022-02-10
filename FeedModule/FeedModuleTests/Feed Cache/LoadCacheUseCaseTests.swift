@@ -95,7 +95,7 @@ class LoadCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_load_deleteCacheOnExpiredCache() {
+    func test_load_deletesCacheOnMinimumExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.adding(days: -7)
@@ -107,6 +107,20 @@ class LoadCacheUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
     }
+    
+    func test_load_deletesCacheOnPassedExpirationDateCache() {
+        let feed = uniqueImageFeed()
+        let fixedCurrentDate = Date()
+        let expiredTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
+        
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        sut.load { _ in }
+        store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
+    }
+
     
     
     func test_load_deosNotDeleteCacheOnValidNonExpiredCache() {
