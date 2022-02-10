@@ -156,7 +156,7 @@ class CodableFeedStoreTests: XCTestCase {
     
     private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
         
-        let expect = expectation(description: "Wait for result")
+        let exp = expectation(description: "Wait for result")
         
         sut.retrieve { retrievedResult in
                 switch (retrievedResult, expectedResult) {
@@ -168,10 +168,10 @@ class CodableFeedStoreTests: XCTestCase {
                 default:
                     XCTFail("Exepected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
                 }
-                expect.fulfill()
+            exp.fulfill()
             }
             
-        wait(for: [expect], timeout: 1.0)
+        wait(for: [exp], timeout: 1.0)
     }
     
     private func testSpecificStoreURL() -> URL {

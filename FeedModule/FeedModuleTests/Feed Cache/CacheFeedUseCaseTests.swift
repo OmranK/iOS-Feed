@@ -102,16 +102,16 @@ class CacheFeedUseCaseTests: XCTestCase {
     // MARK: - Helpers
     
     private func expect(_ sut: LocalFeedLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        let expect = expectation(description: "Wait for save completion")
+        let exp = expectation(description: "Wait for save completion")
         
         var receivedError: Error?
         sut.save(uniqueImageFeed().models) { error in
             receivedError = error
-            expect.fulfill()
+            exp.fulfill()
         }
         
         action()
-        wait(for: [expect], timeout: 1.0)
+        wait(for: [exp], timeout: 1.0)
         
         XCTAssertEqual(receivedError as NSError?, expectedError)
     }
