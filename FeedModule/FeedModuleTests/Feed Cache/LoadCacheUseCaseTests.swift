@@ -44,7 +44,6 @@ class LoadCacheUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let nonExpiredTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
         
-        
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
         expect(sut, toCompleteWith: .success(feed.models), when: {
@@ -52,10 +51,23 @@ class LoadCacheUseCaseTests: XCTestCase {
         })
     }
     
-    func test_load_deliversNoImagesOnExpiredCache() {
+    func test_load_deliversNoImagesOnMinimumExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.adding(days: -7)
+        
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        expect(sut, toCompleteWith: .success([]), when: {
+            store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
+        })
+    }
+    
+    
+    func test_load_deliversNoImagesOnPassedExpirationDateCache() {
+        let feed = uniqueImageFeed()
+        let fixedCurrentDate = Date()
+        let expiredTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: -1)
         
         
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
