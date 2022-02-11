@@ -83,6 +83,7 @@
 		B7F297B227B5F93B002FE92A /* CodableFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStore.swift; sourceTree = "<group>"; };
 		B7F297B427B61320002FE92A /* FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpecs.swift; sourceTree = "<group>"; };
 		B7F297B727B6145B002FE92A /* XCTestCase+FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedStoreSpecs.swift"; sourceTree = "<group>"; };
+		B7F297BA27B616D9002FE92A /* da.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = da.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +118,7 @@
 			children = (
 				B7C0EA57279E968000634EA7 /* LoadFeedFromRemoteUseCaseTests.swift */,
 				B72BDE0027AE46DC00C79E93 /* URLSessionHTTPClientTests.swift */,
+				B7F297BA27B616D9002FE92A /* da.swift */,
 			);
 			path = FeedAPI;
 			sourceTree = "<group>";
@@ -141,13 +143,12 @@
 		B741889027B3980E00D5DB23 /* Feed Cache */ = {
 			isa = PBXGroup;
 			children = (
+				B7F297B927B615DB002FE92A /* FeedStoreSpecs */,
 				B7DA2C7C27B4B6CD002BB526 /* Helpers */,
 				B741889127B3982D00D5DB23 /* CacheFeedUseCaseTests.swift */,
 				B7DA2C7827B4B4DB002BB526 /* LoadCacheUseCaseTests.swift */,
 				B730B07B27B4E67D009F2072 /* ValidateCacheUseCaseTests.swift */,
 				B73D8E5A27B5A0F0007E4BC1 /* CodableFeedStoreTests.swift */,
-				B7F297B427B61320002FE92A /* FeedStoreSpecs.swift */,
-				B7F297B727B6145B002FE92A /* XCTestCase+FeedStoreSpecs.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -232,6 +233,15 @@
 				B7C5CE3C27B4F5040036EF5B /* FeedCacheTestHelpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B7F297B927B615DB002FE92A /* FeedStoreSpecs */ = {
+			isa = PBXGroup;
+			children = (
+				B7F297B427B61320002FE92A /* FeedStoreSpecs.swift */,
+				B7F297B727B6145B002FE92A /* XCTestCase+FeedStoreSpecs.swift */,
+			);
+			path = FeedStoreSpecs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
