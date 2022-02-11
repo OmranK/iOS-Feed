@@ -126,6 +126,20 @@ class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
+    func test_insert_overridesExistingNonEmptyCache()  {
+        let sut = makeSUT()
+        
+        let firstError = insert((uniqueImageFeed().local, Date()), to: sut)
+        XCTAssertNil(firstError, "Expected feed to be inserted successfully")
+        
+        let latestFeed = uniqueImageFeed().local
+        let latestTimestamp = Date()
+        let latestInsertionError = insert((latestFeed, latestTimestamp), to: sut)
+        
+        XCTAssertNil(latestInsertionError, "Expected feed to be inserted successfully")
+        expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
+    }
+    
     
     // MARK: - Helpers
     
@@ -135,14 +149,16 @@ class CodableFeedStoreTests: XCTestCase {
         return sut
     }
     
-    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore, file: StaticString = #filePath, line: UInt = #line) {
-        
+    @discardableResult
+    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore, file: StaticString = #filePath, line: UInt = #line) -> Error? {
+        var insertionError: Error?
         let exp = expectation(description: "Wait for result")
-        sut.insert(cache.feed, timestamp: cache.timestamp) { error in
-            XCTAssertNil(error, "Expected feed to be inserted successfully", file: file, line: line)
+        sut.insert(cache.feed, timestamp: cache.timestamp) { receivedError in
+            insertionError = receivedError
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
+        return insertionError
     }
     
     private func expect(_ sut: CodableFeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
@@ -151,7 +167,6 @@ class CodableFeedStoreTests: XCTestCase {
     }
 
     private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
-        
         let exp = expectation(description: "Wait for result")
         sut.retrieve { retrievedResult in
                 switch (retrievedResult, expectedResult) {
