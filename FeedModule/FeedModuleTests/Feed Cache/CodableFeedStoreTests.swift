@@ -58,13 +58,15 @@ class CodableFeedStore {
     }
     
     func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping FeedStore.InsertionCompletion) {
-        
-        let encoder = JSONEncoder()
-        let cache = Cache(feed: feed.map(CodableFeedImage.init), timestamp: timestamp)
-        let encodedData = try! encoder.encode(cache)
-        try! encodedData.write(to: storeURL)
-        
-        completion(nil)
+        do {
+            let encoder = JSONEncoder()
+            let cache = Cache(feed: feed.map(CodableFeedImage.init), timestamp: timestamp)
+            let encodedData = try! encoder.encode(cache)
+            try encodedData.write(to: storeURL)
+            completion(nil)
+        } catch {
+            completion(error)
+        }
     }
 }
 
@@ -128,16 +130,24 @@ class CodableFeedStoreTests: XCTestCase {
     
     func test_insert_overridesExistingNonEmptyCache()  {
         let sut = makeSUT()
-        
-        let firstError = insert((uniqueImageFeed().local, Date()), to: sut)
-        XCTAssertNil(firstError, "Expected feed to be inserted successfully")
+        let firstInsertionError = insert((uniqueImageFeed().local, Date()), to: sut)
+        XCTAssertNil(firstInsertionError, "Expected to insert cache successfully")
         
         let latestFeed = uniqueImageFeed().local
         let latestTimestamp = Date()
         let latestInsertionError = insert((latestFeed, latestTimestamp), to: sut)
-        
-        XCTAssertNil(latestInsertionError, "Expected feed to be inserted successfully")
+
+        XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
         expect(sut, toRetrieve: .found(feed: latestFeed, timestamp: latestTimestamp))
+    }
+    
+    func test_insert_deliversErrorOnInsertionError()  {
+        let invalidStoreURL = URL(string: "invalid://store-url")
+        let sut = makeSUT(storeURL: invalidStoreURL)
+        
+        let insertionError = insert((uniqueImageFeed().local, Date()), to: sut)
+        
+        XCTAssertNotNil(insertionError, "Expected cache insertion to fail with error")
     }
     
     
