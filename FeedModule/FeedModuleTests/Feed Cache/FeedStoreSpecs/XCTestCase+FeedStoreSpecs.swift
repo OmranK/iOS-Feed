@@ -145,19 +145,19 @@ extension FeedStoreSpecs where Self: XCTestCase {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
-
+    
     func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for result")
         sut.retrieve { retrievedResult in
-                switch (retrievedResult, expectedResult) {
-                case (.empty, .empty), (.failure, .failure):
-                    break;
-                case let (.found(expectedFeed, expectedTimestamp), .found(retrievedFeed, retrievedTimestamp)):
-                    XCTAssertEqual(expectedFeed, retrievedFeed, file: file, line: line)
-                    XCTAssertEqual(expectedTimestamp, retrievedTimestamp, file: file, line: line)
-                default:
-                    XCTFail("Exepected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
-                }
+            switch (retrievedResult, expectedResult) {
+            case (.empty, .empty), (.failure, .failure):
+                break;
+            case let (.found(expectedFeed, expectedTimestamp), .found(retrievedFeed, retrievedTimestamp)):
+                XCTAssertEqual(expectedFeed, retrievedFeed, file: file, line: line)
+                XCTAssertEqual(expectedTimestamp, retrievedTimestamp, file: file, line: line)
+            default:
+                XCTFail("Exepected to retrieve \(expectedResult), got \(retrievedResult) instead", file: file, line: line)
+            }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)

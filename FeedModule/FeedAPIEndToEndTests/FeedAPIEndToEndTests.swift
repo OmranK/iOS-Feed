@@ -9,7 +9,7 @@ import XCTest
 import FeedModule
 
 class FeedAPIEndToEndTests: XCTestCase {
-
+    
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
         case let .success(imageFeed)?:
@@ -53,7 +53,7 @@ class FeedAPIEndToEndTests: XCTestCase {
     private func expectedImage(at index: Int) -> FeedImage {
         return FeedImage(id: id(at: index), description: description(at: index), location: location(at: index), url: imageURL(at: index))
     }
-
+    
     private func id(at index: Int) -> UUID {
         return UUID(uuidString: [
             "73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6",
@@ -96,5 +96,4 @@ class FeedAPIEndToEndTests: XCTestCase {
     private func imageURL(at index: Int) -> URL {
         return URL(string: "https://url-\(index + 1).com")!
     }
-
 }
