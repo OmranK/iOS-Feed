@@ -46,7 +46,14 @@ public final class CoreDataFeedStore: FeedStore {
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        return completion(nil)
+        context.perform { [context] in
+            do {
+                try ManagedCache.find(in: context).map(context.delete).map(context.save)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
     }
     
 }
@@ -92,11 +99,6 @@ private class ManagedCache: NSManagedObject {
         return feed.compactMap { ($0 as? ManagedFeedImage)?.local}
     }
     
-    static func newUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
-        try find(in: context).map(context.delete)
-        return ManagedCache(context: context)
-    }
-    
     func managedImageFeed(from localFeed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
         return NSOrderedSet(array: localFeed.map { localFeedImage in
             let managedFeedImage = ManagedFeedImage(context: context)
@@ -106,6 +108,11 @@ private class ManagedCache: NSManagedObject {
             managedFeedImage.url = localFeedImage.url
             return managedFeedImage
         })
+    }
+    
+    static func newUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
+        try find(in: context).map(context.delete)
+        return ManagedCache(context: context)
     }
     
     static func find(in context: NSManagedObjectContext) throws -> ManagedCache? {
