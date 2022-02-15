@@ -159,7 +159,7 @@ class LoadCacheUseCaseTests: XCTestCase {
     
     private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedResult: LocalFeedLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         
-        let expect = expectation(description: "Wait for retrieval completion")
+        let exp = expectation(description: "Wait for retrieval completion")
 
         sut.load() { receivedResult in
             switch (receivedResult, expectedResult) {
@@ -170,11 +170,11 @@ class LoadCacheUseCaseTests: XCTestCase {
             default:
                 XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
             }
-            expect.fulfill()
+            exp.fulfill()
         }
 
         action()
-        wait(for: [expect], timeout: 1.0)
+        wait(for: [exp], timeout: 1.0)
 
     }
 }
