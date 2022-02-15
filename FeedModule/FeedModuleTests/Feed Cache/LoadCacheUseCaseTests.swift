@@ -23,7 +23,7 @@ class LoadCacheUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
-
+    
     func test_load_failsOnRetrievalError() {
         let (sut, store) = makeSUT()
         let retrievalError = anyNSError()
@@ -31,7 +31,7 @@ class LoadCacheUseCaseTests: XCTestCase {
             store.completeRetrieval(with: retrievalError)
         })
     }
-
+    
     func test_load_deliversNoImagesOnEmptyCache() {
         let (sut, store) = makeSUT()
         expect(sut, toCompleteWith: .success([]), when: {
@@ -94,7 +94,7 @@ class LoadCacheUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
-
+    
     func test_load_hasNoSideEffectsOnNonExpiredCache() {
         let feed = uniqueImageFeed()
         let fixedCurrentDate = Date()
@@ -160,7 +160,7 @@ class LoadCacheUseCaseTests: XCTestCase {
     private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedResult: LocalFeedLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for retrieval completion")
-
+        
         sut.load() { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedFeed), .success(expectedFeed)):
@@ -172,9 +172,9 @@ class LoadCacheUseCaseTests: XCTestCase {
             }
             exp.fulfill()
         }
-
+        
         action()
         wait(for: [exp], timeout: 1.0)
-
+        
     }
 }

@@ -59,7 +59,7 @@ extension LocalFeedLoader: FeedLoader  {
         }
     }
 }
-    
+
 extension LocalFeedLoader {
     public func validateCache() {
         store.retrieve { [weak self] result in
