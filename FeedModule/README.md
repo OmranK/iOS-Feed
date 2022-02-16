@@ -18,7 +18,7 @@ By identifying the key behaviors needed by the core business logic and defining 
 The best way to approach this type of design is to visualize the key components in a dependency diagram. Each component is responsible for defining or implementing certain behaviors. By creating logical separations we can then start to build out our system guided by a mental map that can be easily analyzed, changed, added to or removed from.
 
 ### Initial Dependency Graph
-![](README-images/image11.png)
+![](README-images/image1.png)
 
 ### Final Depenedency Graph
 ![](README-images/image2.png)
