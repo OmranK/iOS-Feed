@@ -6,7 +6,7 @@
 A simple iOS app that loads and displays images in the users feed.
 
 ### Under the hood 
-The application of high level concepts of software design and architecture such as Dependency Inversion, Clean Architecture, Version Control, Continuous Integration, and more to the process of engineering an iOS mobile application with modular components that are decoupled from one another and are easy to refactor or replace. 
+The application of high level concepts of software design and architecture such as Dependency Inversion, Dependency Injection, Single Responsibility Principle, Liskov Substitution Principle, Interface Segregation Principle, Clean Architecture, Version Control, Continuous Integration, and more to the process of engineering an iOS mobile application with modular components that are decoupled from one another and are easy to refactor or replace. 
 
 Following the principles of TDD, all components are continously tested in 
 isolation via unit tests, allowing us to ensure that correct behaviors are achieved, programming mistakes are caught, and data races and memory leaks are protected against. Maintenanability is guaranteed in perpetuity by integration tests, version control, and the continuous integration pipeline. This ensures the codebase is highly predictable, easy to refactor and even easier to understand.
