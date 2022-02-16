@@ -45,46 +45,36 @@ public final class CodableFeedStore: FeedStore {
     
     public func retrieve(completion: @escaping RetrievalCompletion) {
         queue.async { [storeURL] in
-            guard let data = try? Data(contentsOf: storeURL) else {
-                return completion(.empty)
-            }
-            
-            do {
+            completion(Result {
+                guard let data = try? Data(contentsOf: storeURL) else {
+                    return .none
+                }
                 let decoder = JSONDecoder()
                 let cache = try decoder.decode(Cache.self, from: data)
-                completion(.found(feed: cache.localFeed, timestamp: cache.timestamp))
-            } catch {
-                completion(.failure(error))
-            }
+                return CachedFeed(feed: cache.localFeed, timestamp: cache.timestamp)
+            })
         }
     }
     
     public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
         queue.async(flags: .barrier) { [storeURL] in
-            do {
+            completion(Result {
                 let encoder = JSONEncoder()
                 let cache = Cache(feed: feed.map(CodableFeedImage.init), timestamp: timestamp)
                 let encodedData = try! encoder.encode(cache)
                 try encodedData.write(to: storeURL)
-                completion(nil)
-            } catch {
-                completion(error)
-            }
+            })
         }
     }
     
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         queue.async(flags: .barrier) { [storeURL] in
-            guard FileManager.default.fileExists(atPath: storeURL.path) else {
-                return completion(nil)
-            }
-            
-            do {
+            completion(Result {
+                guard FileManager.default.fileExists(atPath: storeURL.path) else {
+                    return
+                }
                 try FileManager.default.removeItem(at: storeURL)
-                completion(nil)
-            } catch {
-                completion(error)
-            }
+            })
         }
     }
 }
