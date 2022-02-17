@@ -1,6 +1,6 @@
 # iOS Feed Application - Feed Loading Framework
 
-[![CI](https://github.com/OmranK/iOSApp-Feed-FrontEnd/actions/workflows/CI.yml/badge.svg)](https://github.com/OmranK/iOSApp-Feed-FrontEnd/actions/workflows/CI.yml)
+[![CI_macOS](https://github.com/OmranK/iOS-Feed/actions/workflows/CI_macOS.yml/badge.svg)](https://github.com/OmranK/iOS-Feed/actions/workflows/CI_macOS.yml)
 
 Framework for loading an Application's Feed built using TDD, CLEAN Architecture, Dependency Inversion and Continuous Integration.
 

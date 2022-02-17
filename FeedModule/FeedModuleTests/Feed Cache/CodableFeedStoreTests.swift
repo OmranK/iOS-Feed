@@ -121,15 +121,13 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
         assertThatDeleteRemovesExistingNonEmptyCache(on: sut)    }
     
     func test_deleteCachedFeed_deliversErrorOnDeletionError() {
-        let noDeletePermissionURL = cachesDirectory()
-        let sut = makeSUT(storeURL: noDeletePermissionURL)
+        let sut = makeSUT(storeURL: noDeletePermissionURL())
         
         assertThatDeleteDeliversErrorOnDeletionError(on: sut)
     }
     
     func test_deleteCachedFeed_hasNoSideEffectsOnDeletionError() {
-        let noDeletePermissionURL = cachesDirectory()
-        let sut = makeSUT(storeURL: noDeletePermissionURL)
+        let sut = makeSUT(storeURL: noDeletePermissionURL())
         
         assertThatDeleteDeliversErrorOnDeletionError(on: sut)
     }
@@ -162,6 +160,10 @@ class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     
     private func testSpecificStoreURL() -> URL {
         return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
+    }
+    
+    private func noDeletePermissionURL() -> URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .systemDomainMask).first!
     }
     
     private func cachesDirectory() -> URL {
