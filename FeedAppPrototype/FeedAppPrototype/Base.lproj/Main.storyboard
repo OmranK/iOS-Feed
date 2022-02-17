@@ -107,6 +107,7 @@ Location</string>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="4Uh-hE-1nz" id="IyE-y9-3ce"/>
+                                    <outlet property="feedImageContainer" destination="d5V-pH-PFT" id="0Pj-Gy-m2t"/>
                                     <outlet property="feedImageView" destination="3DO-6N-Any" id="20c-wp-NuD"/>
                                     <outlet property="locationContainer" destination="ZVY-Gh-Hwb" id="bgg-a8-d86"/>
                                     <outlet property="locationLabel" destination="DDN-go-o5G" id="84r-yR-I3V"/>
@@ -120,6 +121,7 @@ Location</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="User Feed" id="K61-0Q-4dq"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="dzZ-mJ-EkJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="refresh" destination="4bj-ag-Vu3" eventType="valueChanged" id="ZRE-ZD-Gpb"/>
@@ -146,7 +148,7 @@ Location</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6XF-bf-cd5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-423.1884057971015" y="-6.0267857142857144"/>
+            <point key="canvasLocation" x="-632" y="-6"/>
         </scene>
     </scenes>
     <resources>
