@@ -9,6 +9,8 @@ import XCTest
 import UIKit
 import FeedModule
 
+// MARK: - Production Types
+
 final class FeedViewController: UITableViewController {
     
     private var loader: FeedLoader?
@@ -34,6 +36,7 @@ final class FeedViewController: UITableViewController {
     }
 }
 
+// MARK: - Tests
 
 final class FeedViewControllerTests: XCTestCase {
     
@@ -75,6 +78,23 @@ final class FeedViewControllerTests: XCTestCase {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
+        loader.completeLoadingFeed()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
+    
+    func test_pullToRefresh_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+        
+        sut.refreshControl?.simulatePullToRefresh()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+    }
+    
+    func test_pullToRefresh_hidesIndicatorOnLoaderCompletion() {
+        let (sut, loader) = makeSUT()
+        
+        sut.refreshControl?.simulatePullToRefresh()
         loader.completeLoadingFeed()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
