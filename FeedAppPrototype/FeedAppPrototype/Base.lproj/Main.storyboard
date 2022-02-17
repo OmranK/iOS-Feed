@@ -26,7 +26,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="579" id="MMe-DY-yrl">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="579" id="MMe-DY-yrl" customClass="FeedImageCell" customModule="FeedAppPrototype" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="60.5" width="414" height="579"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MMe-DY-yrl" id="zTa-lT-jhC">
@@ -105,6 +105,12 @@ Location</string>
                                         <constraint firstAttribute="trailingMargin" secondItem="UYb-mv-JWt" secondAttribute="trailing" id="mQK-AF-UpU"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="4Uh-hE-1nz" id="IyE-y9-3ce"/>
+                                    <outlet property="feedImageView" destination="3DO-6N-Any" id="20c-wp-NuD"/>
+                                    <outlet property="locationContainer" destination="ZVY-Gh-Hwb" id="bgg-a8-d86"/>
+                                    <outlet property="locationLabel" destination="DDN-go-o5G" id="84r-yR-I3V"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
