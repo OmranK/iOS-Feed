@@ -1,3 +1,4 @@
+
 //
 //  FeedViewControllerTests.swift
 //  FeediOS
@@ -62,7 +63,7 @@ final class FeedViewControllerTests: XCTestCase {
     }
     
     
-    // MARK: - Helpers
+    // MARK: - Make Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
@@ -76,7 +77,8 @@ final class FeedViewControllerTests: XCTestCase {
         return FeedImage(id: UUID(), description: description, location: location, url: url)
     }
     
-
+    // MARK: - Assertion Helpers
+    
     private func assertThat(_ sut: FeedViewController, isRendering feedImage: [FeedImage], file: StaticString = #file, line: UInt = #line) {
         guard sut.numberOfRenderedFeedImageViews() == feedImage.count else {
             return XCTFail("Expected \(feedImage.count) views rendered got \(sut.numberOfRenderedFeedImageViews()) instead", file: file, line: line)
@@ -102,7 +104,7 @@ final class FeedViewControllerTests: XCTestCase {
         
         XCTAssertEqual(cell.descriptionText, feedImage.description, "Expected description text to be \(String(describing: feedImage.description)) for image view at index (\(index))", file: file, line: line)
     }
-
+    
     // MARK: - Spy
     
     class LoaderSpy: FeedLoader {
@@ -123,7 +125,7 @@ final class FeedViewControllerTests: XCTestCase {
     }
 }
 
-// MARK: - Helper Extensions
+// MARK: - DSL Helper Extensions
 
 private extension FeedViewController {
     
