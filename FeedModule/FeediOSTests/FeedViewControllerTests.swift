@@ -8,35 +8,7 @@
 import XCTest
 import UIKit
 import FeedModule
-
-// MARK: - Production Types
-
-final class FeedViewController: UITableViewController {
-    
-    private var loader: FeedLoader?
-    
-    convenience init(loader: FeedLoader) {
-        self.init()
-        self.loader = loader
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        load()
-    }
-    
-    @objc private func load() {
-        refreshControl?.beginRefreshing()
-        loader?.load { [weak self] _ in
-            self?.refreshControl?.endRefreshing()
-        }
-    }
-}
-
-// MARK: - Tests
+import FeediOS
 
 final class FeedViewControllerTests: XCTestCase {
     
@@ -54,15 +26,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 3, "Expected a third loading request when user initiates another load")
     }
     
-    func test_viewDidLoad_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-        
-        XCTAssertEqual(sut.isShowingLoadingIndicator, true)
-    }
-    
-    func test_viewDidLoad_hidesIndicatorOnLoaderCompletion() {
+    func test_loadFeedIndicator_isVisibleWhileLoadingFeed() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
