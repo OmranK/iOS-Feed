@@ -51,13 +51,7 @@ final class FeedViewControllerTests: XCTestCase {
         
         loader.completeLoadingFeed(with: [image0], at: 0)
         XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 1)
-        
-        let view = sut.feedImageView(at: 0) as? FeedImageCell
-        XCTAssertNotNil(view)
-        XCTAssertEqual(view?.isShowingLocation, true)
-        XCTAssertEqual(view?.locationText, image0.location)
-        XCTAssertEqual(view?.descriptionText, image0.description)
-        
+        assertThat(sut, hasViewRenderCorrectlyFor: image0, at: 0)
     }
     
     
@@ -75,6 +69,23 @@ final class FeedViewControllerTests: XCTestCase {
         return FeedImage(id: UUID(), description: description, location: location, url: url)
     }
     
+    
+    private func assertThat(_ sut: FeedViewController, hasViewRenderCorrectlyFor feedImage: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
+        let view = sut.feedImageView(at: index)
+        
+        guard let cell = view as? FeedImageCell else {
+            return XCTFail("Expected \(FeedImageCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+        
+        let shouldLocationBeVisible = (feedImage.location != nil)
+        
+        XCTAssertEqual(cell.isShowingLocation, shouldLocationBeVisible, "Expected `isShowingLocation` to be \(shouldLocationBeVisible) for image view at index (\(index))", file: file, line: line)
+        
+        XCTAssertEqual(cell.locationText, feedImage.location, "Expected location text to be \(String(describing: feedImage.location)) for image view at index (\(index))", file: file, line: line)
+        
+        XCTAssertEqual(cell.descriptionText, feedImage.description, "Expected description text to be \(String(describing: feedImage.description)) for image view at index (\(index))", file: file, line: line)
+    }
+
     // MARK: - Spy
     
     class LoaderSpy: FeedLoader {
