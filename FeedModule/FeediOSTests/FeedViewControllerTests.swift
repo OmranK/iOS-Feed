@@ -51,20 +51,14 @@ final class FeedViewControllerTests: XCTestCase {
         let image3 = makeImage(description: nil, location: nil)
         
         sut.loadViewIfNeeded()
-        XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 0)
+        assertThat(sut, isRendering: [])
         
         loader.completeLoadingFeed(with: [image0], at: 0)
-        XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 1)
-        assertThat(sut, hasViewRenderCorrectlyFor: image0, at: 0)
+        assertThat(sut, isRendering: [image0])
         
         sut.simulateUserInitiatedFeedReload()
         loader.completeLoadingFeed(with: [image0, image1, image2, image3], at: 1)
-        XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 4)
-        assertThat(sut, hasViewRenderCorrectlyFor: image0, at: 0)
-        assertThat(sut, hasViewRenderCorrectlyFor: image1, at: 1)
-        assertThat(sut, hasViewRenderCorrectlyFor: image2, at: 2)
-        assertThat(sut, hasViewRenderCorrectlyFor: image3, at: 3)
-        
+        assertThat(sut, isRendering: [image0, image1, image2, image3])
     }
     
     
@@ -82,6 +76,16 @@ final class FeedViewControllerTests: XCTestCase {
         return FeedImage(id: UUID(), description: description, location: location, url: url)
     }
     
+
+    private func assertThat(_ sut: FeedViewController, isRendering feedImage: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+        guard sut.numberOfRenderedFeedImageViews() == feedImage.count else {
+            return XCTFail("Expected \(feedImage.count) views rendered got \(sut.numberOfRenderedFeedImageViews()) instead", file: file, line: line)
+        }
+        
+        feedImage.enumerated().forEach { index, image in
+            assertThat(sut, hasViewRenderCorrectlyFor: image, at: index, file: file, line: line)
+        }
+    }
     
     private func assertThat(_ sut: FeedViewController, hasViewRenderCorrectlyFor feedImage: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
         let view = sut.feedImageView(at: index)
