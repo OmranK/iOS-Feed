@@ -185,6 +185,29 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(view?.retryButtonIsVisible, true, "Expected retry button to appear when image loading completes with invalid data.")
     }
     
+    func test_feedImageViewRetryButton_retriesImageLoad() {
+        let (sut, loader) = makeSUT()
+        let image0 = makeImage(url: URL(string: "http://url-0.com")!)
+        let image1 = makeImage(url: URL(string: "http://url-1.com")!)
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoadingFeed(with: [image0, image1])
+        
+        let view0 = sut.simulateVisibleImageView(at: 0)
+        let view1 = sut.simulateVisibleImageView(at: 1)
+        XCTAssertEqual(loader.loadedImageURLS, [image0.url, image1.url], "Expected two image URL requests for the two visibile views.")
+        
+        loader.completeImageLoadingWithError(at: 0)
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(loader.loadedImageURLS, [image0.url, image1.url], "Expected only two image URL requests before retry action.")
+        
+        view0?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLS, [image0.url, image1.url, image0.url], "Expected three image URL requests after first retry action.")
+        
+        view1?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLS, [image0.url, image1.url, image0.url, image1.url], "Expected four image URL requests after second retry action.")
+    }
+    
     // MARK: - Make Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
@@ -350,12 +373,27 @@ private extension FeedImageCell {
     var retryButtonIsVisible: Bool {
         return !retryButton.isHidden
     }
+    
+    func simulateRetryAction() {
+        retryButton.simulateTap()
+    }
+    
 }
 
 private extension UIRefreshControl {
     func simulatePullToRefresh() {
         allTargets.forEach { target in
             actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
+        }
+    }
+}
+
+private extension UIButton {
+    func simulateTap() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach {
                 (target as NSObject).perform(Selector($0))
             }
         }
