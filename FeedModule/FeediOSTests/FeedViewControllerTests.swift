@@ -225,6 +225,22 @@ final class FeedViewControllerTests: XCTestCase {
 
     }
     
+    func test_feedImageView_cancelsPreloadINGImageURLWhenNotNearVisibleAnymore() {
+        let (sut, loader) = makeSUT()
+        let image0 = makeImage(url: URL(string: "http://url-0.com")!)
+        let image1 = makeImage(url: URL(string: "http://url-1.com")!)
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoadingFeed(with: [image0, image1])
+        XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL request until image is near visible.")
+        
+        sut.simulateImageViewNotNearVisible(at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected first image URL request once first image is near visible.")
+        
+        sut.simulateImageViewNotNearVisible(at: 1)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url, image1.url], "Expected first and second image URL request once second image is near visible.")
+
+    }
     // MARK: - Make Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
@@ -358,6 +374,14 @@ private extension FeedViewController {
         let ds = tableView.prefetchDataSource
         let index = IndexPath(row: row, section: feedImagesSection)
         ds?.tableView(tableView, prefetchRowsAt: [index])
+    }
+    
+    func simulateImageViewNotNearVisible(at row: Int) {
+        simulateImageViewNearVisible(at: row)
+        
+        let ds = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: feedImagesSection)
+        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
