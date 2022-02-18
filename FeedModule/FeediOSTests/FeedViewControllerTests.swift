@@ -89,6 +89,22 @@ final class FeedViewControllerTests: XCTestCase {
         
         sut.simulateVisibleImageView(at: 1)
         XCTAssertEqual(loader.loadedImageURLS, [image0.url, image1.url], "Expected no image URL requests until views become visible")
+    }
+    
+    func test_feedImageView_cancelsLoadingImageURLWhenNotVisible() {
+        let (sut, loader) = makeSUT()
+        let image0 = makeImage(url: URL(string: "http://url-0.com")!)
+        let image1 = makeImage(url: URL(string: "http://url-1.com")!)
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoadingFeed(with: [image0, image1], at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no image URL requests until views become visible")
+        
+        sut.simulateNotVisibleImageView(at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected no image URL requests until views become visible")
+        
+        sut.simulateNotVisibleImageView(at: 1)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url, image1.url], "Expected no image URL requests until views become visible")
 
     }
     
@@ -162,9 +178,14 @@ final class FeedViewControllerTests: XCTestCase {
         // MARK: - FeedImageDataLoader
         
         private(set) var loadedImageURLS = [URL]()
+        private(set) var cancelledImageURLs = [URL]()
         
         func loadImageData(from url: URL) {
             loadedImageURLS.append(url)
+        }
+        
+        func cancelLoadingImageData(from url: URL) {
+            cancelledImageURLs.append(url)
         }
     }
 }
@@ -185,8 +206,17 @@ private extension FeedViewController {
         return tableView.numberOfRows(inSection: feedImagesSection)
     }
     
-    func simulateVisibleImageView(at index: Int) {
-        _ = feedImageView(at: index)
+    @discardableResult
+    func simulateVisibleImageView(at index: Int) -> FeedImageCell {
+        return (feedImageView(at: index) as? FeedImageCell)!
+    }
+    
+    func simulateNotVisibleImageView(at row: Int) {
+        let view = feedImageView(at: row)
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: 0)
+        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
