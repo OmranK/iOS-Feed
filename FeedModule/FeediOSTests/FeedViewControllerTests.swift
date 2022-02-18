@@ -119,8 +119,8 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.isShowingImageLoadingIndicator, true, "Expected loading indicator while loading second image")
         
         loader.completeImageLoading(at: 0)
-        XCTAssertEqual(view0?.isShowingImageLoadingIndicator, false, "Expected no loading indicator for the first view once first image loading completes sucessfully.")
-        XCTAssertEqual(view1?.isShowingImageLoadingIndicator, true, "Expected no loading indicator state change for the second view once first image loading completes sucessfully.")
+        XCTAssertEqual(view0?.isShowingImageLoadingIndicator, false, "Expected no loading indicator for the first view once first image loading completes successfully.")
+        XCTAssertEqual(view1?.isShowingImageLoadingIndicator, true, "Expected no loading indicator state change for the second view once first image loading completes successfully.")
         
         
         loader.completeImageLoadingWithError(at: 1)
@@ -141,13 +141,34 @@ final class FeedViewControllerTests: XCTestCase {
         
         let imageData0 = UIImage.make(withColor: .red).pngData()!
         loader.completeImageLoading(with: imageData0, at: 0)
-        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected image for the first view once first image loading completes sucessfully.")
-        XCTAssertEqual(view1?.renderedImage, .none, "Expected no image state change for the second view once first image loading completes sucessfully.")
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected image for the first view once first image loading completes successfully.")
+        XCTAssertEqual(view1?.renderedImage, .none, "Expected no image state change for the second view once first image loading completes successfully.")
         
         let imageData1 = UIImage.make(withColor: .blue).pngData()!
         loader.completeImageLoading(with: imageData1, at: 1)
-        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected no image state change for the first view once second image loading completes sucessfully.")
-        XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for the second view once second image loading completes sucessfully.")
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected no image state change for the first view once second image loading completes successfully.")
+        XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for the second view once second image loading completes successfully.")
+    }
+    
+    func test_feedImageViewRetryButton_isVisibleOnImageDataLoadError() {
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoadingFeed(with: [makeImage(), makeImage()])
+        
+        let view0 = sut.simulateVisibleImageView(at: 0)
+        let view1 = sut.simulateVisibleImageView(at: 1)
+        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button for the first view while loading first image.")
+        XCTAssertEqual(view1?.retryButtonIsVisible, false, "Expected no retry button for the second view while loading second image.")
+        
+        let imageData = UIImage.make(withColor: .red).pngData()!
+        loader.completeImageLoading(with: imageData, at: 0)
+        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button for the first view once first image loading completes successfully.")
+        XCTAssertEqual(view1?.retryButtonIsVisible, false, "Expected no retry button state change for the second view once first image loading completes successfully.")
+        
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button state change for the first view once second image loading completes with error.")
+        XCTAssertEqual(view1?.retryButtonIsVisible, true, "Expected retry button to appear for the second view once second image loading completes with error.")
     }
     
     // MARK: - Make Helpers
@@ -310,6 +331,10 @@ private extension FeedImageCell {
     
     var renderedImage: Data? {
         return feedImageView.image?.pngData()
+    }
+    
+    var retryButtonIsVisible: Bool {
+        return !retryButton.isHidden
     }
 }
 
