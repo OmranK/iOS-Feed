@@ -43,8 +43,12 @@ final class FeedViewControllerTests: XCTestCase {
     }
     
     func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
-        let image0 = makeImage(description: "a description", location: "a location")
         let (sut, loader) = makeSUT()
+        
+        let image0 = makeImage(description: "a description", location: "a location")
+        let image1 = makeImage(description: "a description", location: nil)
+        let image2 = makeImage(description: nil, location: "a location")
+        let image3 = makeImage(description: nil, location: nil)
         
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 0)
@@ -52,6 +56,15 @@ final class FeedViewControllerTests: XCTestCase {
         loader.completeLoadingFeed(with: [image0], at: 0)
         XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 1)
         assertThat(sut, hasViewRenderCorrectlyFor: image0, at: 0)
+        
+        sut.simulateUserInitiatedFeedReload()
+        loader.completeLoadingFeed(with: [image0, image1, image2, image3], at: 1)
+        XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 4)
+        assertThat(sut, hasViewRenderCorrectlyFor: image0, at: 0)
+        assertThat(sut, hasViewRenderCorrectlyFor: image1, at: 1)
+        assertThat(sut, hasViewRenderCorrectlyFor: image2, at: 2)
+        assertThat(sut, hasViewRenderCorrectlyFor: image3, at: 3)
+        
     }
     
     
