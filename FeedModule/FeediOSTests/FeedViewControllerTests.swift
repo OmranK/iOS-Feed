@@ -150,7 +150,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for the second view once second image loading completes successfully.")
     }
     
-    func test_feedImageViewRetryButton_isVisibleOnImageDataLoadError() {
+    func test_feedImageViewRetryAction_isVisibleOnImageDataLoadError() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
@@ -158,34 +158,34 @@ final class FeedViewControllerTests: XCTestCase {
         
         let view0 = sut.simulateVisibleImageView(at: 0)
         let view1 = sut.simulateVisibleImageView(at: 1)
-        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button for the first view while loading first image.")
-        XCTAssertEqual(view1?.retryButtonIsVisible, false, "Expected no retry button for the second view while loading second image.")
+        XCTAssertEqual(view0?.retryActionIsVisible, false, "Expected no retry action for the first view while loading first image.")
+        XCTAssertEqual(view1?.retryActionIsVisible, false, "Expected no retry action for the second view while loading second image.")
         
         let imageData = UIImage.make(withColor: .red).pngData()!
         loader.completeImageLoading(with: imageData, at: 0)
-        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button for the first view once first image loading completes successfully.")
-        XCTAssertEqual(view1?.retryButtonIsVisible, false, "Expected no retry button state change for the second view once first image loading completes successfully.")
+        XCTAssertEqual(view0?.retryActionIsVisible, false, "Expected no retry action for the first view once first image loading completes successfully.")
+        XCTAssertEqual(view1?.retryActionIsVisible, false, "Expected no retry action state change for the second view once first image loading completes successfully.")
         
         loader.completeImageLoadingWithError(at: 1)
-        XCTAssertEqual(view0?.retryButtonIsVisible, false, "Expected no retry button state change for the first view once second image loading completes with error.")
-        XCTAssertEqual(view1?.retryButtonIsVisible, true, "Expected retry button to appear for the second view once second image loading completes with error.")
+        XCTAssertEqual(view0?.retryActionIsVisible, false, "Expected no retry action state change for the first view once second image loading completes with error.")
+        XCTAssertEqual(view1?.retryActionIsVisible, true, "Expected retry action to appear for the second view once second image loading completes with error.")
     }
     
-    func test_feedImageViewRetryButton_isVisibleOnInvalidImageData() {
+    func test_feedImageViewRetryAction_isVisibleOnInvalidImageData() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         loader.completeLoadingFeed(with: [makeImage(), makeImage()])
         
         let view = sut.simulateVisibleImageView(at: 0)
-        XCTAssertEqual(view?.retryButtonIsVisible, false, "Expected no retry button while loading image.")
+        XCTAssertEqual(view?.retryActionIsVisible, false, "Expected no retry action while loading image.")
         
         let invalidImageData = Data("invalid image data".utf8)
         loader.completeImageLoading(with: invalidImageData, at: 0)
-        XCTAssertEqual(view?.retryButtonIsVisible, true, "Expected retry button to appear when image loading completes with invalid data.")
+        XCTAssertEqual(view?.retryActionIsVisible, true, "Expected retry action to appear when image loading completes with invalid data.")
     }
     
-    func test_feedImageViewRetryButton_retriesImageLoad() {
+    func test_feedImageViewRetryAction_retriesImageLoad() {
         let (sut, loader) = makeSUT()
         let image0 = makeImage(url: URL(string: "http://url-0.com")!)
         let image1 = makeImage(url: URL(string: "http://url-1.com")!)
@@ -370,7 +370,7 @@ private extension FeedImageCell {
         return feedImageView.image?.pngData()
     }
     
-    var retryButtonIsVisible: Bool {
+    var retryActionIsVisible: Bool {
         return !retryButton.isHidden
     }
     
