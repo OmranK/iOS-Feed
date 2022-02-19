@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FeedModule
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
     
