@@ -343,58 +343,6 @@ final class FeedViewControllerTests: XCTestCase {
 
 // MARK: - DSL Helper Extensions
 
-private extension FeedViewController {
-    
-    var isShowingLoadingIndicator: Bool {
-        return refreshControl?.isRefreshing == true
-    }
-    
-    func simulateUserInitiatedFeedReload() {
-        refreshControl?.simulatePullToRefresh()
-    }
-    
-    func numberOfRenderedFeedImageViews() -> Int {
-        return tableView.numberOfRows(inSection: feedImagesSection)
-    }
-    
-    @discardableResult
-    func simulateVisibleImageView(at index: Int) -> FeedImageCell? {
-        return (feedImageView(at: index) as? FeedImageCell)!
-    }
-    
-    func simulateNotVisibleImageView(at row: Int) {
-        let view = feedImageView(at: row)
-        
-        let delegate = tableView.delegate
-        let index = IndexPath(row: row, section: 0)
-        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
-    }
-    
-    func simulateImageViewNearVisible(at row: Int) {
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        ds?.tableView(tableView, prefetchRowsAt: [index])
-    }
-    
-    func simulateImageViewNotNearVisible(at row: Int) {
-        simulateImageViewNearVisible(at: row)
-        
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
-    }
-    
-    func feedImageView(at row: Int) -> UITableViewCell? {
-        let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        return ds?.tableView(tableView, cellForRowAt: index)
-    }
-    
-    private var feedImagesSection: Int {
-        return 0
-    }
-}
-
 private extension FeedImageCell {
     
     var isShowingLocation: Bool {
