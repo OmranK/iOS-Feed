@@ -8,7 +8,7 @@
 import UIKit
 import FeedModule
 
-public final class FeedRefreshViewController: NSObject {
+final class FeedRefreshViewController: NSObject {
 
     private let feedLoader: FeedLoader
     
