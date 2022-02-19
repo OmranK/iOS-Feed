@@ -8,7 +8,7 @@
 import FeedModule
 import UIKit
 
-public final class FeedUIComposer {
+final public class FeedUIComposer {
     private init() {}
     
     public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {

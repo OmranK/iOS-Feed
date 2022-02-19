@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
+final public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
     
     private var refreshController: FeedRefreshViewController?
     
