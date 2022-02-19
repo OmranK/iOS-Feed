@@ -19,7 +19,6 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
             self.tableView.reloadData()
         }
     }
-    private var tasks = [IndexPath: FeedImageDataLoaderTask]()
     
     public convenience init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
         self.init()
