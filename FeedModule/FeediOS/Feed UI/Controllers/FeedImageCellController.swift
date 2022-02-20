@@ -4,36 +4,28 @@
 //
 //  Created by Omran Khoja on 2/19/22.
 //
-//protocol FeedImageCellControllerDelegate {
-//    func didRequestLoadImage()
-//    func didCancelLoadImage()
-//}
+
 import UIKit
 
 
+protocol FeedImageCellControllerDelegate {
+    func didRequestLoadImage()
+    func didCancelLoadImage()
+}
 
-final class FeedImageCellController: ImageView {
+
+final class FeedImageCellController: FeedImageView {
     typealias Image = UIImage
-    typealias Callback = () -> Void
-    
     private lazy var cell = FeedImageCell()
     
-    private let load: Callback
-    private let cancel: Callback
-    
-    init(load: @escaping Callback, cancel: @escaping Callback) {
-        self.load = load
-        self.cancel = cancel
+    private let delegate: FeedImageCellControllerDelegate
+    init(delegate: FeedImageCellControllerDelegate) {
+        self.delegate = delegate
     }
     
-//    private let delegate: FeedImageCellControllerDelegate
-//    init(delegate: FeedImageCellControllerDelegate) {
-//        self.delegate = delegate
-//    }
-    
     func view() -> UITableViewCell {
-        cell.onRetry = load
-        load()
+        cell.onRetry = delegate.didRequestLoadImage
+        delegate.didRequestLoadImage()
         return cell
     }
     
@@ -47,11 +39,11 @@ final class FeedImageCellController: ImageView {
     }
 
     func preLoad() {
-        load()
+        delegate.didRequestLoadImage()
     }
 
     func cancelLoad() {
-        cancel()
+        delegate.didCancelLoadImage()
     }
 }
 
