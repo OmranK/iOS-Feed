@@ -12,16 +12,17 @@ final public class FeedUIComposer {
     private init() {}
     
     public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let feedViewPresenter = FeedPresenter(feedLoader: feedLoader)
-        let refreshController = FeedRefreshViewController(loadFeed: feedViewPresenter.loadFeed)
+        let feedPresenter = FeedPresenter()
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader, presenter: feedPresenter)
+        let refreshController = FeedRefreshViewController(loadFeed: presentationAdapter.loadFeed)
         let feedController = FeedViewController(refreshController: refreshController)
-        feedViewPresenter.loadingView = WeakRefVirtualProxy(refreshController)
-        feedViewPresenter.feedView = FeedViewAdapter(feedController: feedController, imageLoader: imageLoader)
+        feedPresenter.loadingView = WeakRefVirtualProxy(refreshController)
+        feedPresenter.feedView = FeedViewAdapter(feedController: feedController, imageLoader: imageLoader)
         return feedController
     }
 }
 
-private class FeedViewAdapter: FeedView {
+final private class FeedViewAdapter: FeedView {
     private weak var feedController: FeedViewController?
     private let imageLoader: FeedImageDataLoader
     
@@ -37,9 +38,33 @@ private class FeedViewAdapter: FeedView {
     }
 }
 
-private final class WeakRefVirtualProxy<T: AnyObject> {
-    private weak var object: T?
+final private class FeedLoaderPresentationAdapter {
+    private let feedLoader: FeedLoader
+    private let presenter: FeedPresenter
     
+    init(feedLoader: FeedLoader, presenter: FeedPresenter) {
+        self.feedLoader = feedLoader
+        self.presenter = presenter
+    }
+    
+    func loadFeed() {
+        presenter.didStartLoadingFeed()
+        
+        feedLoader.load { [weak self] result in
+            switch result {
+            case let .success(feed):
+                self?.presenter.didFinishLoadingFeed(feed: feed)
+            case let .failure(error):
+                self?.presenter.didFinishLoadingFeed(with: error)
+            }
+        }
+    }
+    
+}
+
+final private class WeakRefVirtualProxy<T: AnyObject> {
+    private weak var object: T?
+
     init(_ object: T) {
         self.object = object
     }
