@@ -31,7 +31,10 @@ final class FeedImageCellController: FeedImageView {
         cell?.locationContainer.isHidden = !model.hasLocation
         cell?.locationLabel.text = model.location
         cell?.descriptionLabel.text = model.description
+        
         cell?.feedImageView.image = model.image
+        cell?.feedImageView.setImageWithAnimation(model.image)
+        
         cell?.retryButton.isHidden = !model.shouldRetry
         cell?.feedImageContainer.isShimmering = model.isLoading
         cell?.onRetry = delegate.didRequestLoadImage
@@ -40,7 +43,7 @@ final class FeedImageCellController: FeedImageView {
     func preLoad() {
         delegate.didRequestLoadImage()
     }
-
+    
     func cancelLoad() {
         releaseCellForReuse()
         delegate.didCancelLoadImage()
@@ -50,3 +53,5 @@ final class FeedImageCellController: FeedImageView {
         cell = nil
     }
 }
+
+
