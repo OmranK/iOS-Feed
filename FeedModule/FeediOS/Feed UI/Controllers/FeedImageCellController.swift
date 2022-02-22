@@ -22,11 +22,9 @@ final class FeedImageCellController: FeedImageView {
     }
     
     func view(in tableView: UITableView) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedImageCell") as! FeedImageCell
-        self.cell = cell
-        self.cell?.onRetry = delegate.didRequestLoadImage
+        cell = tableView.dequeueReusableCell()
         delegate.didRequestLoadImage()
-        return cell
+        return cell!
     }
     
     func display(_ model: ImageViewModel<UIImage>) {
@@ -36,6 +34,7 @@ final class FeedImageCellController: FeedImageView {
         cell?.feedImageView.image = model.image
         cell?.retryButton.isHidden = !model.shouldRetry
         cell?.feedImageContainer.isShimmering = model.isLoading
+        cell?.onRetry = delegate.didRequestLoadImage
     }
 
     func preLoad() {
@@ -51,4 +50,3 @@ final class FeedImageCellController: FeedImageView {
         cell = nil
     }
 }
-
