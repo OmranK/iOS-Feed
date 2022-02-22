@@ -7,12 +7,10 @@
 
 import UIKit
 
-
 protocol FeedImageCellControllerDelegate {
     func didRequestLoadImage()
     func didCancelLoadImage()
 }
-
 
 final class FeedImageCellController: FeedImageView {
     typealias Image = UIImage
