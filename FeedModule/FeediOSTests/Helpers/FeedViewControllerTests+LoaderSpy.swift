@@ -54,7 +54,7 @@ class LoaderSpy: FeedLoader, FeedImageDataLoader {
         return TaskSpy { [weak self] in self?.cancelledImageURLs.append(url) }
     }
     
-    func completeImageLoading(with imageData: Data = Data(), at index: Int) {
+    func completeImageLoading(with imageData: Data = Data(), at index: Int = 0) {
         imageRequests[index].completion(.success(imageData))
     }
     

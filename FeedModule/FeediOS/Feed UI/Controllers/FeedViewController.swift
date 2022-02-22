@@ -7,9 +7,13 @@
 
 import UIKit
 
-final public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
-    
-    private var refreshController: FeedRefreshViewController?
+protocol FeedViewControllerDelegate {
+    func didRequestFeedRefresh()
+}
+
+final public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView{
+
+    var delegate: FeedViewControllerDelegate?
     
     var viewModel = [FeedImageCellController]() {
         didSet {
@@ -17,18 +21,18 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
         }
     }
     
-    convenience init(refreshController: FeedRefreshViewController) {
-        self.init()
-        self.refreshController = refreshController
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.prefetchDataSource = self
+        refresh()
         
-        refreshControl = refreshController?.view
-        refreshController?.refresh()
-        
+    }
+    
+    func display(_ viewModel: FeedLoadingViewModel) {
+        viewModel.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
+    }
+    
+    @IBAction private func refresh() {
+        delegate?.didRequestFeedRefresh()
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +40,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cellController(forRowAt: indexPath).view()
+        return cellController(forRowAt: indexPath).view(in: tableView)
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -45,7 +49,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
-            _ =  cellController(forRowAt: indexPath).view()
+            _ =  cellController(forRowAt: indexPath).view(in: tableView)
         }
     }
     
