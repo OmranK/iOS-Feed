@@ -5,8 +5,8 @@
 //  Created by Omran Khoja on 2/20/22.
 //
 
-import FeedCoreModule
 import Foundation
+import FeedCoreModule
 
 protocol FeedLoadingView {
     func display(_ viewModel: FeedLoadingViewModel)
