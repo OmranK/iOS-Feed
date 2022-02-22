@@ -18,6 +18,10 @@ protocol FeedView {
 final class FeedPresenter{
     private let loadingView: FeedLoadingView
     private let feedView: FeedView
+        
+    static var title: String = {
+        return "My Feed"
+    }()
     
     init(loadingView: FeedLoadingView, feedView: FeedView) {
         self.loadingView = loadingView
