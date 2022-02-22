@@ -76,6 +76,9 @@ Location</string>
                                                                 <fontDescription key="titleFontDescription" type="system" weight="heavy" pointSize="100"/>
                                                                 <color key="baseForegroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="retryButtonTapped" destination="8Hc-yU-yYH" eventType="touchUpInside" id="THJ-OE-g7J"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -117,11 +120,20 @@ Location</string>
                                         <constraint firstAttribute="bottomMargin" secondItem="gvK-BZ-bJq" secondAttribute="bottom" priority="999" constant="6" id="ya2-oq-nDe"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="pL1-LR-J3Z" id="bub-sR-arA"/>
+                                    <outlet property="feedImageContainer" destination="as8-jf-LgM" id="tbN-g8-dpd"/>
+                                    <outlet property="feedImageView" destination="D5z-gF-eVg" id="pAV-m2-udf"/>
+                                    <outlet property="locationContainer" destination="MRU-fC-4gR" id="JT0-cG-D9i"/>
+                                    <outlet property="locationLabel" destination="obl-D4-hvI" id="UPK-ZH-yhk"/>
+                                    <outlet property="retryButton" destination="G5v-Vd-kOq" id="lAb-9e-K9F"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ufJ-6a-RoJ" id="wiB-tL-ot4"/>
                             <outlet property="delegate" destination="ufJ-6a-RoJ" id="s4u-M7-1Ay"/>
+                            <outlet property="prefetchDataSource" destination="ufJ-6a-RoJ" id="Fqi-Kb-Cpg"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="User Feed" id="JZ7-jh-dmA"/>
