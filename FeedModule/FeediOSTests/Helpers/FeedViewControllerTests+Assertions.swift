@@ -11,7 +11,7 @@ import FeediOS
 
 // MARK: - Assertion Helpers
 
-extension FeedViewControllerTests {
+extension FeedUIIntegrationTests {
     func assertThat(_ sut: FeedViewController, isRendering feedImage: [FeedImage], file: StaticString = #file, line: UInt = #line) {
         guard sut.numberOfRenderedFeedImageViews() == feedImage.count else {
             return XCTFail("Expected \(feedImage.count) views rendered got \(sut.numberOfRenderedFeedImageViews()) instead", file: file, line: line)
