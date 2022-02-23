@@ -6,3 +6,4 @@
   
 */
 "FEED_VIEW_TITLE" = "мой канал";
+"FEED_VIEW_CONNECTION_ERROR" = "Не удалось подключиться к серверу";
