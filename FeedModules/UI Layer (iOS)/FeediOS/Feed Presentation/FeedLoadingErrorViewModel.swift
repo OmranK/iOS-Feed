@@ -6,5 +6,5 @@
 //
 
 struct FeedLoadingErrorViewModel {
-    let errorMessage: String
+    let errorMessage: String?
 }
