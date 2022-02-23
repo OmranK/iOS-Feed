@@ -31,9 +31,8 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
         model.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
     }
     
-    
     func display(_ model: FeedLoadingErrorViewModel) {
-        errorView?.message = model.errorMessage
+        errorView?.show(model.errorMessage ?? nil)
     }
     
     @IBAction private func refresh() {
