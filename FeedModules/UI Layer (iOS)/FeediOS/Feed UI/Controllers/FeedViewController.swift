@@ -28,7 +28,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     func display(_ model: FeedLoadingViewModel) {
-        model.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
+        refreshControl?.update(isRefreshing: model.isLoading)
     }
     
     func display(_ model: FeedLoadingErrorViewModel) {

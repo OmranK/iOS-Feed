@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B70F34D027C67A0300E0FA6D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34CF27C67A0300E0FA6D /* ErrorView.swift */; };
+		B70F34D227C6929C00E0FA6D /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34D127C6929C00E0FA6D /* UIRefreshControl+Helpers.swift */; };
 		B70F8A6D27BEF7E90099C79D /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767969627BEEFCF00CC08A1 /* FeedUIIntegrationTests.swift */; };
 		B70F8A7027BEFD580099C79D /* FeedCoreModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C0EA37279E8F0700634EA7 /* FeedCoreModule.framework */; platformFilter = ios; };
 		B70F8A7127BEFD580099C79D /* FeedCoreModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C0EA37279E8F0700634EA7 /* FeedCoreModule.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -152,6 +153,7 @@
 
 /* Begin PBXFileReference section */
 		B70F34CF27C67A0300E0FA6D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B70F34D127C6929C00E0FA6D /* UIRefreshControl+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Helpers.swift"; sourceTree = "<group>"; };
 		B70F8A7827BF19A00099C79D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		B70F8A7A27BF205C0099C79D /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
 		B70F8A7C27BF74B40099C79D /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 			children = (
 				B79B8E3627C4A94F0096A151 /* UITableView+Dequeue.swift */,
 				B79B8E3827C4AC340096A151 /* UIView+SetWithAnimation.swift */,
+				B70F34D127C6929C00E0FA6D /* UIRefreshControl+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				B72E449C27C20D7E00ECD1BB /* FeedPresenter.swift in Sources */,
 				B71A7C3527C0B0140029195A /* FeedImageDataLoader.swift in Sources */,
 				B72E44A627C2529400ECD1BB /* FeedViewModel.swift in Sources */,
+				B70F34D227C6929C00E0FA6D /* UIRefreshControl+Helpers.swift in Sources */,
 				B70F8A7D27BF74B40099C79D /* UIView+Shimmering.swift in Sources */,
 				B78F7CFD27C4E00A00D5E7B9 /* FeedViewAdapter.swift in Sources */,
 				B72E44A427C2525100ECD1BB /* FeedLoadingViewModel.swift in Sources */,
