@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70F34D027C67A0300E0FA6D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34CF27C67A0300E0FA6D /* ErrorView.swift */; };
 		B70F8A6D27BEF7E90099C79D /* FeedUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767969627BEEFCF00CC08A1 /* FeedUIIntegrationTests.swift */; };
 		B70F8A7027BEFD580099C79D /* FeedCoreModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C0EA37279E8F0700634EA7 /* FeedCoreModule.framework */; platformFilter = ios; };
 		B70F8A7127BEFD580099C79D /* FeedCoreModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C0EA37279E8F0700634EA7 /* FeedCoreModule.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -150,6 +151,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B70F34CF27C67A0300E0FA6D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B70F8A7827BF19A00099C79D /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		B70F8A7A27BF205C0099C79D /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
 		B70F8A7C27BF74B40099C79D /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 				B70F8A7C27BF74B40099C79D /* UIView+Shimmering.swift */,
 				B72E44A927C2EE4F00ECD1BB /* Feed.storyboard */,
 				B72E44AB27C2EEA800ECD1BB /* Feed.xcassets */,
+				B70F34CF27C67A0300E0FA6D /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -966,6 +969,7 @@
 				B70F8A7927BF19A00099C79D /* FeedViewController.swift in Sources */,
 				B70F8A7B27BF205C0099C79D /* FeedImageCell.swift in Sources */,
 				B78F7CFF27C4E03E00D5E7B9 /* WeakRefVirtualProcy.swift in Sources */,
+				B70F34D027C67A0300E0FA6D /* ErrorView.swift in Sources */,
 				B71A7C3C27C0C4450029195A /* FeedImageCellController.swift in Sources */,
 				B78F7D0127C4E08200D5E7B9 /* FeedLoadingPresentationAdapter.swift in Sources */,
 				B7F52A6827C6634C00756ECA /* FeedLoadingErrorViewModel.swift in Sources */,
