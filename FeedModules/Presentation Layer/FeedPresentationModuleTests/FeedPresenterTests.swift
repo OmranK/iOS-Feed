@@ -7,77 +7,7 @@
 
 import XCTest
 import FeedCoreModule
-
-protocol FeedLoadingView {
-    func display(_ viewModel: FeedLoadingViewModel)
-}
-
-struct FeedLoadingViewModel {
-    let isLoading: Bool
-}
-
-protocol FeedLoadingErrorView {
-    func display(_ viewModel: FeedLoadingErrorViewModel)
-}
-
-struct FeedLoadingErrorViewModel {
-    let errorMessage: String?
-    
-    static var noError: FeedLoadingErrorViewModel {
-        return FeedLoadingErrorViewModel(errorMessage: nil)
-    }
-    
-    static func error(message: String) -> FeedLoadingErrorViewModel {
-        return FeedLoadingErrorViewModel(errorMessage: message)
-    }
-}
-
-protocol FeedView {
-    func display(_ viewModel: FeedViewModel)
-}
-
-struct FeedViewModel {
-    let feed: [FeedImage]
-}
-
-final class FeedPresenter {
-    
-    let loadingView: FeedLoadingView
-    let errorView: FeedLoadingErrorView
-    let feedView: FeedView
-    
-    static var title: String {
-        return NSLocalizedString("FEED_VIEW_TITLE",
-                                 tableName: "Feed",
-                                 bundle: Bundle(for: FeedPresenter.self),
-                                 comment: "Title for the feed view")
-    }
-
-    init(feedView: FeedView, loadingView: FeedLoadingView, errorView: FeedLoadingErrorView) {
-        self.loadingView = loadingView
-        self.errorView = errorView
-        self.feedView = feedView
-    }
-    
-    func didStartLoadingFeed() {
-        errorView.display(.noError)
-        loadingView.display(FeedLoadingViewModel(isLoading: true))
-    }
-    
-    func didFinishLoadingFeed(feed: [FeedImage]) {
-        feedView.display(FeedViewModel(feed: feed))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
-    }
-    
-    func didFinishLoadingFeed(with error: Error) {
-        errorView.display(FeedLoadingErrorViewModel.error(message: feedLoadError))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
-    }
-    
-    private var feedLoadError: String {
-        return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the image feed from server.")
-    }
-}
+import FeedPresentationModule
 
 class FeedPresenterTests: XCTestCase {
     
