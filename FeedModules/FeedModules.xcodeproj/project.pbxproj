@@ -44,6 +44,8 @@
 		B769D1FF27D9373C00955B37 /* FeedCoreModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7C0EA37279E8F0700634EA7 /* FeedCoreModule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B769D20527D9397800955B37 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C5CE3C27B4F5040036EF5B /* FeedCacheTestHelpers.swift */; };
 		B769D20627D939A600955B37 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C5CE3E27B4F92B0036EF5B /* SharedTestHelpers.swift */; };
+		B769D20F27D93D6700955B37 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = B769D20B27D93CD300955B37 /* Feed.strings */; };
+		B769D21027D93D8000955B37 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = B769D20B27D93CD300955B37 /* Feed.strings */; };
 		B78F7CFB27C4DF0D00D5E7B9 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78F7CFA27C4DF0D00D5E7B9 /* MainQueueDispatchDecorator.swift */; };
 		B78F7CFD27C4E00A00D5E7B9 /* FeedViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78F7CFC27C4E00A00D5E7B9 /* FeedViewAdapter.swift */; };
 		B78F7CFF27C4E03E00D5E7B9 /* WeakRefVirtualProcy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78F7CFE27C4E03E00D5E7B9 /* WeakRefVirtualProcy.swift */; };
@@ -203,6 +205,9 @@
 		B767968127BE317900CC08A1 /* FeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B767968827BE317A00CC08A1 /* FeediOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeediOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B767969627BEEFCF00CC08A1 /* FeedUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B769D20A27D93CD300955B37 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
+		B769D20C27D93CD500955B37 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Feed.strings; sourceTree = "<group>"; };
+		B769D20D27D93CD600955B37 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Feed.strings; sourceTree = "<group>"; };
 		B78F7CFA27C4DF0D00D5E7B9 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		B78F7CFC27C4E00A00D5E7B9 /* FeedViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewAdapter.swift; sourceTree = "<group>"; };
 		B78F7CFE27C4E03E00D5E7B9 /* WeakRefVirtualProcy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProcy.swift; sourceTree = "<group>"; };
@@ -596,6 +601,7 @@
 		B7F52A4027C5745600756ECA /* FeedPresentationModule */ = {
 			isa = PBXGroup;
 			children = (
+				B769D20B27D93CD300955B37 /* Feed.strings */,
 			);
 			path = FeedPresentationModule;
 			sourceTree = "<group>";
@@ -957,6 +963,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B769D21027D93D8000955B37 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -964,6 +971,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B769D20F27D93D6700955B37 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1145,6 +1153,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B769D20B27D93CD300955B37 /* Feed.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B769D20A27D93CD300955B37 /* en */,
+				B769D20C27D93CD500955B37 /* ru */,
+				B769D20D27D93CD600955B37 /* es */,
+			);
+			name = Feed.strings;
+			sourceTree = "<group>";
+		};
 		B79B8E4027C4BD900096A151 /* Feed.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,0 +1,9 @@
+/* 
+  Feed.strings
+  FeedModules
+
+  Created by Omran Khoja on 3/9/22.
+  
+*/
+"FEED_VIEW_TITLE" = "Mi Canal";
+"FEED_VIEW_CONNECTION_ERROR" = "No se pudo conectar al servidor";
