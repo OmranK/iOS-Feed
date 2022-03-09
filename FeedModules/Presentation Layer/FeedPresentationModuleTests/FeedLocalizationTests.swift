@@ -7,7 +7,6 @@
 
 import XCTest
 import FeedPresentationModule
-//@testable import FeediOS
 
 final class FeedLocalizationTests: XCTestCase {
     
