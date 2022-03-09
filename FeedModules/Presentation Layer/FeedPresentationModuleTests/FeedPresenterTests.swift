@@ -56,25 +56,27 @@ class FeedPresenterTests: XCTestCase {
         
         sut.didStartLoadingFeed()
         
-        XCTAssertEqual(view.messages, [.display(errorMessage: .none), .display(isLoading: true)], "Expected no view messages")
+        XCTAssertEqual(view.messages, [.display(errorMessage: .none), .display(isLoading: true)], "Expected two view messages")
     }
     
     
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedPresenter, view: ViewSpy) {
-        let spy = ViewSpy()
-        let sut = FeedPresenter(loadingView: spy, errorView: spy)
+        let viewSpy = ViewSpy()
+        let sut = FeedPresenter(loadingView: viewSpy, errorView: viewSpy)
         trackForMemoryLeaks(sut, file: file, line: line)
-        trackForMemoryLeaks(spy, file: file, line: line)
-        return (sut, spy)
+        trackForMemoryLeaks(viewSpy, file: file, line: line)
+        return (sut, viewSpy)
     }
     
     private class ViewSpy: FeedLoadingErrorView, FeedLoadingView {
+        
         enum Message: Equatable {
             case display(errorMessage: String?)
             case display(isLoading: Bool)
         }
+        
         private(set) var messages = [Message]()
         
         func display(_ viewModel: FeedLoadingErrorViewModel) {
