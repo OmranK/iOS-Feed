@@ -9,35 +9,15 @@ import Foundation
 import FeedCoreModule
 
 public protocol FeedLoadingView {
-    func display(_ viewModel: FeedLoadingViewModel)
-}
-
-public struct FeedLoadingViewModel {
-    public let isLoading: Bool
+    func display(_ viewModel: FeedLoadingViewVM)
 }
 
 public protocol FeedLoadingErrorView {
-    func display(_ viewModel: FeedLoadingErrorViewModel)
-}
-
-public struct FeedLoadingErrorViewModel {
-    public let errorMessage: String?
-    
-    static var noError: FeedLoadingErrorViewModel {
-        return FeedLoadingErrorViewModel(errorMessage: nil)
-    }
-    
-    static func error(message: String) -> FeedLoadingErrorViewModel {
-        return FeedLoadingErrorViewModel(errorMessage: message)
-    }
+    func display(_ viewModel: FeedLoadingErrorViewVM)
 }
 
 public protocol FeedView {
-    func display(_ viewModel: FeedViewModel)
-}
-
-public struct FeedViewModel {
-    public let feed: [FeedImage]
+    func display(_ viewModel: FeedViewVM)
 }
 
 public final class FeedPresenter {
@@ -61,17 +41,17 @@ public final class FeedPresenter {
     
     public func didStartLoadingFeed() {
         errorView.display(.noError)
-        loadingView.display(FeedLoadingViewModel(isLoading: true))
+        loadingView.display(FeedLoadingViewVM(isLoading: true))
     }
     
     public func didFinishLoadingFeed(feed: [FeedImage]) {
-        feedView.display(FeedViewModel(feed: feed))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
+        feedView.display(FeedViewVM(feed: feed))
+        loadingView.display(FeedLoadingViewVM(isLoading: false))
     }
     
     public func didFinishLoadingFeed(with error: Error) {
-        errorView.display(FeedLoadingErrorViewModel.error(message: feedLoadError))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
+        errorView.display(FeedLoadingErrorViewVM.error(message: feedLoadError))
+        loadingView.display(FeedLoadingViewVM(isLoading: false))
     }
     
     private var feedLoadError: String {
