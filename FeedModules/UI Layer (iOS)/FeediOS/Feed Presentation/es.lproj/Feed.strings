@@ -1,9 +1,0 @@
-/* 
-  Feed.strings
-  FeedCoreModule
-
-  Created by Omran Khoja on 2/22/22.
-  
-*/
-"FEED_VIEW_TITLE" = "Mi Canal";
-"FEED_VIEW_CONNECTION_ERROR" = "No se pudo conectar al servidor";

@@ -6,7 +6,8 @@
 //
 
 import XCTest
-@testable import FeediOS
+import FeedPresentationModule
+//@testable import FeediOS
 
 final class FeedLocalizationTests: XCTestCase {
     
