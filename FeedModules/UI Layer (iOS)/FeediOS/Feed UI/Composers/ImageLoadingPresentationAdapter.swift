@@ -6,6 +6,7 @@
 //
 
 import FeedCoreModule
+import FeedPresentationModule
 
 final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage
@@ -26,8 +27,8 @@ final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedIma
             switch result {
             case let .success(data):
                 self?.presenter?.didFinishLoadingImageData(with: data, for: model)
-            case .failure:
-                self?.presenter?.didFinishLoadingImageDataWithError(for: model)
+            case let .failure(error):
+                self?.presenter?.didFinishLoadingImageData(with: error, for: model)
             }
         }
     }
