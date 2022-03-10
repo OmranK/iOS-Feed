@@ -178,10 +178,6 @@ class LoadImageFromRemoteUseCaseTests: XCTestCase {
         return (sut, client)
     }
     
-    private func anyData() -> Data {
-        return Data("any data".utf8)
-    }
-    
     private func failure(_ error: RemoteImageLoader.Error) -> ImageLoader.Result {
         return .failure(error)
     }
