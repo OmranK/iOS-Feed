@@ -8,5 +8,9 @@
 import FeedCoreModule
 
 struct FeedViewModel {
+    internal init(feed: [FeedImage]) {
+        self.feed = feed
+    }
+    
     let feed: [FeedImage]
 }
