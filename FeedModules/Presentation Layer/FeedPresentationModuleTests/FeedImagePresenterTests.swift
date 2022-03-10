@@ -6,51 +6,7 @@
 //
 
 import XCTest
-import FeedCoreModule
-
-struct FeedImageViewVM<Image> {
-    let description: String?
-    let location: String?
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-    var hasLocation: Bool {
-        return location != nil
-    }
-}
-
-protocol FeedImageView {
-    associatedtype Image
-    func display(_ model: FeedImageViewVM<Image>)
-}
-
-final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
-    
-    typealias ImageTransformation = (Data) -> Image?
-
-    let view: View
-    let imageTransformer: ImageTransformation
-    
-    init(view: View, imageTransformer: @escaping ImageTransformation) {
-        self.view = view
-        self.imageTransformer = imageTransformer
-    }
-    
-    func didStartLoadingImageData(for model: FeedImage){
-        view.display(FeedImageViewVM(description: model.description, location: model.location, image: nil, isLoading: true, shouldRetry: false))
-    }
-    
-    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        let image = imageTransformer(data)
-        view.display(FeedImageViewVM(description: model.description, location: model.location, image: image, isLoading: false, shouldRetry: image == nil))
-    }
-    
-    
-    func didFinishLoadingImageData(with: Error, for model: FeedImage) {
-        view.display(FeedImageViewVM(description: model.description, location: model.location, image: nil, isLoading: false, shouldRetry: true))
-    }
-    
-}
+import FeedPresentationModule
 
 class FeedImagePresenterTests: XCTestCase {
     
