@@ -5,8 +5,9 @@
 //  Created by Omran Khoja on 2/19/22.
 //
 
-import FeedCoreModule
 import UIKit
+import FeedCoreModule
+import FeedPresentationModule
 
 final public class FeedUIComposer {
     private init() {}
@@ -18,7 +19,7 @@ final public class FeedUIComposer {
         let presenter = FeedPresenter(
             feedView:  FeedViewAdapter(feedController: feedController, imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
             loadingView: WeakRefVirtualProxy(feedController),
-            loadingErrorView: WeakRefVirtualProxy(feedController))
+            errorView: WeakRefVirtualProxy(feedController))
         
         presentationAdapter.presenter = presenter
         

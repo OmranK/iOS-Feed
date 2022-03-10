@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FeedPresentationModule
 
 protocol FeedImageCellControllerDelegate {
     func didRequestLoadImage()
@@ -27,7 +28,7 @@ final class FeedImageCellController: FeedImageView {
         return cell!
     }
     
-    func display(_ model: ImageViewModel<UIImage>) {
+    func display(_ model: FeedImageViewVM<UIImage>) {
         cell?.locationContainer.isHidden = !model.hasLocation
         cell?.locationLabel.text = model.location
         cell?.descriptionLabel.text = model.description
