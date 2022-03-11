@@ -29,11 +29,8 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
         let primaryImageData = primaryImageData()
         let fallbackImageData = fallbackImageData()
-
-        let primaryLoader = ImageLoaderStub(result: .success(primaryImageData))
-        let fallbackLoader = ImageLoaderStub(result: .success(fallbackImageData))
-
-        let sut = ImageLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        
+        let sut = makeSUT(primaryResult: .success(primaryImageData), fallbackResult: .success(fallbackImageData))
         let url = URL(string: "http://any-url.com")!
         
         let exp = expectation(description: "Wait for load completion")
@@ -51,12 +48,26 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     
     // MARK: - Helpers
     
+    private func makeSUT(primaryResult: ImageLoader.Result, fallbackResult: ImageLoader.Result, file: StaticString = #file, line: UInt = #line) -> ImageLoaderWithFallbackComposite {
+        let primaryLoader = ImageLoaderStub(result: primaryResult)
+        let fallbackLoader = ImageLoaderStub(result: fallbackResult)
+        let sut = ImageLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return sut
+    }
+    
     private func primaryImageData() -> Data {
         return UIImage.make(withColor: .red).pngData()!
     }
     
     private func fallbackImageData() -> Data {
         return UIImage.make(withColor: .blue).pngData()!
+    }
+    
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
     }
     
     // MARK: - Stub
