@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension CoreDataFeedStore: ImageDataStore {
+extension CoreDataFeedStore: ImageStore {
     
-    public func insert(_ data: Data, for url: URL, completion: @escaping (ImageDataStore.InsertionResult) -> Void) {
+    public func insert(_ data: Data, for url: URL, completion: @escaping (ImageStore.InsertionResult) -> Void) {
         perform { context in
             completion(Result {
                 let image = try ManagedFeedImage.first(with: url, in: context)
@@ -19,7 +19,7 @@ extension CoreDataFeedStore: ImageDataStore {
         }
     }
     
-    public func retrieve(dataForURL url: URL, completion: @escaping (ImageDataStore.RetrievalResult) -> Void) {
+    public func retrieve(dataForURL url: URL, completion: @escaping (ImageStore.RetrievalResult) -> Void) {
         perform { context in
             completion(Result {
                 try ManagedFeedImage.first(with: url, in: context)?.data

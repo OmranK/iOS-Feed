@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol ImageDataStore {
+public protocol ImageStore {
     typealias RetrievalResult = Swift.Result<Data?, Error>
     typealias InsertionResult = Swift.Result<Void, Error>
 

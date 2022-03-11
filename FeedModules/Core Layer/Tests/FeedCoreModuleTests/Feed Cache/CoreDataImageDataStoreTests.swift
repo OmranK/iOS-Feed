@@ -76,11 +76,11 @@ class CoreDataImageDataStoreTests: XCTestCase {
         return sut
     }
     
-    private func notFound() -> ImageDataStore.RetrievalResult {
+    private func notFound() -> ImageStore.RetrievalResult {
         return .success(.none)
     }
     
-    private func found(_ data: Data) -> ImageDataStore.RetrievalResult {
+    private func found(_ data: Data) -> ImageStore.RetrievalResult {
         return .success(data)
     }
     
@@ -88,7 +88,7 @@ class CoreDataImageDataStoreTests: XCTestCase {
         return LocalFeedImage(id: UUID(), description: "any", location: "any", url: url)
     }
     
-    private func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: ImageDataStore.RetrievalResult, for url: URL,  file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: ImageStore.RetrievalResult, for url: URL,  file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         sut.retrieve(dataForURL: url) { receivedResult in
             switch (receivedResult, expectedResult) {

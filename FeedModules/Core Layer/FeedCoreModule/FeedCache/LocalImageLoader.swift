@@ -8,9 +8,9 @@
 import Foundation
 
 public final class LocalImageLoader {
-    private let store: ImageDataStore
+    private let store: ImageStore
     
-    public init(store: ImageDataStore) {
+    public init(store: ImageStore) {
         self.store = store
     }
 }
