@@ -10,12 +10,12 @@ import FeedPresentationModule
 
 final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage
-    private let imageLoader: FeedImageDataLoader
-    private var task: FeedImageDataLoaderTask?
+    private let imageLoader: ImageLoader
+    private var task: ImageLoaderTask?
     
     var presenter: FeedImagePresenter<View, Image>?
     
-    init(task: FeedImageDataLoaderTask? = nil, model: FeedImage, imageLoader: FeedImageDataLoader) {
+    init(task: ImageLoaderTask? = nil, model: FeedImage, imageLoader: ImageLoader) {
         self.task = task
         self.model = model
         self.imageLoader = imageLoader

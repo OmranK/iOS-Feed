@@ -12,7 +12,7 @@ import FeedPresentationModule
 final public class FeedUIComposer {
     private init() {}
     
-    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
+    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: ImageLoader) -> FeedViewController {
         let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
         let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
         

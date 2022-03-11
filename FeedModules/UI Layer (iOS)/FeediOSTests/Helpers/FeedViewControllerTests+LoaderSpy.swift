@@ -9,7 +9,7 @@ import FeedCoreModule
 import FeediOS
 import Foundation
 
-class LoaderSpy: FeedLoader, FeedImageDataLoader {
+class LoaderSpy: FeedLoader, ImageLoader {
     
     // MARK: - Feed Loader
     
@@ -34,14 +34,14 @@ class LoaderSpy: FeedLoader, FeedImageDataLoader {
     
     // MARK: - FeedImageDataLoader
 
-    private struct TaskSpy: FeedImageDataLoaderTask {
+    private struct TaskSpy: ImageLoaderTask {
         let cancelCallback: () -> Void
         func cancel() {
             cancelCallback()
         }
     }
     
-    private var imageRequests = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
+    private var imageRequests = [(url: URL, completion: (ImageLoader.Result) -> Void)]()
 
     var loadedImageURLs: [URL] {
         return imageRequests.map { $0.url }
@@ -49,7 +49,7 @@ class LoaderSpy: FeedLoader, FeedImageDataLoader {
     
     private(set) var cancelledImageURLs = [URL]()
     
-    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+    func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
         imageRequests.append((url, completion))
         return TaskSpy { [weak self] in self?.cancelledImageURLs.append(url) }
     }

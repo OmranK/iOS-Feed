@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import FeedCoreModule
 import FeedPresentationModule
 
 final class FeedViewAdapter: FeedView {
     private weak var feedController: FeedViewController?
-    private let imageLoader: FeedImageDataLoader
+    private let imageLoader: ImageLoader
     
-    init(feedController: FeedViewController, imageLoader: FeedImageDataLoader){
+    init(feedController: FeedViewController, imageLoader: ImageLoader){
         self.feedController = feedController
         self.imageLoader = imageLoader
     }
