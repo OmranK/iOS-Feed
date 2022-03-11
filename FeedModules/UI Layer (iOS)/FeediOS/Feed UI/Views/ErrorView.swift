@@ -12,6 +12,7 @@ public final class ErrorView: UIView {
     
     public var message: String? {
         get { return isVisible ? button.title(for: .normal) : nil }
+        set { setMessageAnimated(newValue) }
     }
     
     public override func awakeFromNib() {
@@ -25,7 +26,15 @@ public final class ErrorView: UIView {
         return alpha > 0
     }
     
-    func show(_ message: String?) {
+    private func setMessageAnimated(_ message: String?) {
+        if let message = message {
+            showAnimated(message)
+        } else {
+            hideMessageAnimated()
+        }
+    }
+    
+    func showAnimated(_ message: String?) {
         button.setTitle(message, for: .normal)
         
         UIView.animate(withDuration: 0.25) {
