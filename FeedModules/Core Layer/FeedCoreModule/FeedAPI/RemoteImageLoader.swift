@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RemoteImageLoader {
+public final class RemoteImageLoader: ImageLoader {
     
     let client: HTTPClient
     
