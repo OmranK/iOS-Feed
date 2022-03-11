@@ -8,7 +8,30 @@
 import Foundation
 
 public final class LocalImageLoader {
-    private final class Task: ImageLoaderTask {
+    private let store: ImageDataStore
+    
+    public init(store: ImageDataStore) {
+        self.store = store
+    }
+}
+
+extension LocalImageLoader {
+    public typealias SaveResult = Result<Void, Error>
+    
+    public func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
+        store.insert(data, for: url) { _ in }
+    }
+}
+
+extension LocalImageLoader: ImageLoader {
+    public typealias LoadResult = ImageLoader.Result
+    
+    public enum LoadError: Error {
+        case failed
+        case notFound
+    }
+    
+    private final class LoadImageDataTask: ImageLoaderTask {
         private var completion: ((ImageLoader.Result) -> Void)?
         
         init(_ completion: @escaping (ImageLoader.Result) -> Void) {
@@ -28,31 +51,15 @@ public final class LocalImageLoader {
         }
     }
     
-    public enum Error: Swift.Error {
-        case failed
-        case notFound
-    }
-    
-    private let store: ImageDataStore
-    
-    public init(store: ImageDataStore) {
-        self.store = store
-    }
-    
-    public typealias SaveResult = Result<Void, Swift.Error>
-    
-    public func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
-        store.insert(data, for: url) { _ in }
-    }
-    
-    public func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-        let task = Task(completion)
+    public func loadImageData(from url: URL, completion: @escaping (LoadResult) -> Void) -> ImageLoaderTask {
+        let task = LoadImageDataTask(completion)
         store.retrieve(dataForURL: url) { [weak self] result in
             guard self != nil else { return }
+            
             task.complete(with: result
-                            .mapError { _ in Error.failed }
+                            .mapError { _ in LoadError.failed }
                             .flatMap { data in
-                data.map { .success($0) } ?? .failure(Error.notFound)
+                data.map { .success($0) } ?? .failure(LoadError.notFound)
             })
         }
         return task
