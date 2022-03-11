@@ -88,20 +88,6 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         return UIImage.make(withColor: .blue).pngData()!
     }
     
-    private func anyNSError() -> NSError {
-        return NSError(domain: "any error", code: 0)
-    }
-    
-    private func anyURL() -> URL {
-        return URL(string: "http://any-url.com")!
-    }
-    
-    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
-        }
-    }
-    
     // MARK: - Stub
     
     private class ImageLoaderStub: ImageLoader {
