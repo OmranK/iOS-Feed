@@ -8,7 +8,7 @@
 import XCTest
 import FeedCoreModule
 
-class LocalImageLoaderTests: XCTestCase {
+class LoadImageCacheUseCaseTests: XCTestCase {
     
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
