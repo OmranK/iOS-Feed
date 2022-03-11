@@ -33,7 +33,7 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     public func display(_ model: FeedLoadingErrorViewVM) {
-        errorView?.show(model.errorMessage ?? nil)
+        errorView?.message = model.errorMessage
     }
     
     @IBAction private func refresh() {

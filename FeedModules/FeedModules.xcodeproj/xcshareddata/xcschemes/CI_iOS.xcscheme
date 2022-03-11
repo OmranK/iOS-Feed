@@ -45,6 +45,13 @@
             BlueprintName = "FeediOS"
             ReferencedContainer = "container:FeedModules.xcodeproj">
          </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B7F52A3E27C5745600756ECA"
+            BuildableName = "FeedPresentationModule.framework"
+            BlueprintName = "FeedPresentationModule"
+            ReferencedContainer = "container:FeedModules.xcodeproj">
+         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference
@@ -88,6 +95,16 @@
                BlueprintIdentifier = "B767968727BE317A00CC08A1"
                BuildableName = "FeediOSTests.xctest"
                BlueprintName = "FeediOSTests"
+               ReferencedContainer = "container:FeedModules.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B7F52A4527C5745700756ECA"
+               BuildableName = "FeedPresentationModuleTests.xctest"
+               BlueprintName = "FeedPresentationModuleTests"
                ReferencedContainer = "container:FeedModules.xcodeproj">
             </BuildableReference>
          </TestableReference>
