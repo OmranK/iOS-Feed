@@ -41,7 +41,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT(currentDate: { timestamp })
         
         sut.save(feed.models) { _ in }
-        store.completeDeletionSucessfully()
+        store.completeDeletionSuccessfully()
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(feed.local, timestamp)])
     }
@@ -59,7 +59,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let insertionError = anyNSError()
         expect(sut, toCompleteWithError: insertionError, when: {
-            store.completeDeletionSucessfully()
+            store.completeDeletionSuccessfully()
             store.completeInsertion(with: insertionError)
         })
     }
@@ -67,8 +67,8 @@ class CacheFeedUseCaseTests: XCTestCase {
     func test_save_succeedsOnSuccessfulCacheInsertion() {
         let (sut, store) = makeSUT()
         expect(sut, toCompleteWithError: nil, when: {
-            store.completeDeletionSucessfully()
-            store.completeInsertionSucessfully()
+            store.completeDeletionSuccessfully()
+            store.completeInsertionSuccessfully()
         })
     }
     
@@ -92,7 +92,7 @@ class CacheFeedUseCaseTests: XCTestCase {
         var receivedResults = [LocalFeedLoader.SaveResult]()
         sut?.save(uniqueImageFeed().models) { receivedResults.append($0) }
         
-        store.completeDeletionSucessfully()
+        store.completeDeletionSuccessfully()
         sut = nil
         store.completeInsertion(with: anyNSError())
         
