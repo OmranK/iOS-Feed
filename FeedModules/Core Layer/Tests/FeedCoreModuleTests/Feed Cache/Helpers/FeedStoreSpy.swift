@@ -31,7 +31,7 @@ internal class FeedStoreSpy: FeedStore {
         deletionCompletions[index](.failure(error))
     }
     
-    internal func completeDeletionSucessfully(at index: Int = 0) {
+    internal func completeDeletionSuccessfully(at index: Int = 0) {
         deletionCompletions[index](.success(()))
     }
     
@@ -44,7 +44,7 @@ internal class FeedStoreSpy: FeedStore {
         insertCompletions[index](.failure(error))
     }
     
-    internal func completeInsertionSucessfully(at index: Int = 0) {
+    internal func completeInsertionSuccessfully(at index: Int = 0) {
         insertCompletions[index](.success(()))
     }
     
