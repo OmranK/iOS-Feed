@@ -613,6 +613,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		B7D8E62327DADB1100B7AF4A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B7C0EA43279E8F0700634EA7 /* FeedCoreModuleTests */,
+				B72BDE0C27B22AC100C79E93 /* FeedAPIEndToEndTests */,
+				B795B30827BC9DA700A7496A /* FeedCacheIntegrationTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		B7DA2C7C27B4B6CD002BB526 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,9 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				B7C0EA39279E8F0700634EA7 /* FeedCoreModule */,
-				B7C0EA43279E8F0700634EA7 /* FeedCoreModuleTests */,
-				B72BDE0C27B22AC100C79E93 /* FeedAPIEndToEndTests */,
-				B795B30827BC9DA700A7496A /* FeedCacheIntegrationTests */,
+				B7D8E62327DADB1100B7AF4A /* Tests */,
 			);
 			path = "Core Layer";
 			sourceTree = "<group>";
