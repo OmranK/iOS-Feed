@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B79AB9FA27DB135F0014048E /* FeedCoreModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F727DB135F0014048E /* FeedCoreModule.framework */; };
+		B79AB9FB27DB135F0014048E /* FeedCoreModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F727DB135F0014048E /* FeedCoreModule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B79AB9FE27DB135F0014048E /* FeedPresentationModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F927DB135F0014048E /* FeedPresentationModule.framework */; };
+		B79AB9FF27DB135F0014048E /* FeedPresentationModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F927DB135F0014048E /* FeedPresentationModule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B79ABA0227DB136B0014048E /* FeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79ABA0127DB136B0014048E /* FeediOS.framework */; };
+		B79ABA0327DB136B0014048E /* FeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B79ABA0127DB136B0014048E /* FeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B7D8E68327DB122100B7AF4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E68227DB122100B7AF4A /* AppDelegate.swift */; };
 		B7D8E68527DB122100B7AF4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E68427DB122100B7AF4A /* SceneDelegate.swift */; };
 		B7D8E68727DB122100B7AF4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E68627DB122100B7AF4A /* ViewController.swift */; };
@@ -35,7 +41,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B79ABA0027DB135F0014048E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B79ABA0327DB136B0014048E /* FeediOS.framework in Embed Frameworks */,
+				B79AB9FF27DB135F0014048E /* FeedPresentationModule.framework in Embed Frameworks */,
+				B79AB9FB27DB135F0014048E /* FeedCoreModule.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B79AB9F727DB135F0014048E /* FeedCoreModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeedCoreModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B79AB9F827DB135F0014048E /* FeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B79AB9F927DB135F0014048E /* FeedPresentationModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeedPresentationModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B79ABA0127DB136B0014048E /* FeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D8E67F27DB122100B7AF4A /* FeedApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FeedApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D8E68227DB122100B7AF4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7D8E68427DB122100B7AF4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +82,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B79ABA0227DB136B0014048E /* FeediOS.framework in Frameworks */,
+				B79AB9FE27DB135F0014048E /* FeedPresentationModule.framework in Frameworks */,
+				B79AB9FA27DB135F0014048E /* FeedCoreModule.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +105,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B79AB9F627DB135F0014048E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B79ABA0127DB136B0014048E /* FeediOS.framework */,
+				B79AB9F727DB135F0014048E /* FeedCoreModule.framework */,
+				B79AB9F827DB135F0014048E /* FeediOS.framework */,
+				B79AB9F927DB135F0014048E /* FeedPresentationModule.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B7D8E67627DB122100B7AF4A = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +123,7 @@
 				B7D8E69827DB122700B7AF4A /* FeedApplicationTests */,
 				B7D8E6A227DB122700B7AF4A /* FeedApplicationUITests */,
 				B7D8E68027DB122100B7AF4A /* Products */,
+				B79AB9F627DB135F0014048E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +178,7 @@
 				B7D8E67B27DB122100B7AF4A /* Sources */,
 				B7D8E67C27DB122100B7AF4A /* Frameworks */,
 				B7D8E67D27DB122100B7AF4A /* Resources */,
+				B79ABA0027DB135F0014048E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
