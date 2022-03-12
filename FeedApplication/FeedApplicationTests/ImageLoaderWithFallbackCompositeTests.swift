@@ -11,7 +11,12 @@ import FeedCoreModule
 
 class ImageLoaderWithFallbackComposite: ImageLoader {
     
-    private class Task: ImageLoaderTask { func cancel() {} }
+    private class TaskWrapper: ImageLoaderTask {
+        var wrapped: ImageLoaderTask?
+        func cancel() {
+            wrapped?.cancel()
+        }
+    }
     
     let primary: ImageLoader
     let fallback: ImageLoader
@@ -22,7 +27,8 @@ class ImageLoaderWithFallbackComposite: ImageLoader {
     }
     
     func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-        let _ = primary.loadImageData(from: url) { [weak self] result in
+        let task = TaskWrapper()
+        task.wrapped = primary.loadImageData(from: url) { [weak self] result in
             switch result {
             case .success:
                 completion(result)
@@ -30,7 +36,7 @@ class ImageLoaderWithFallbackComposite: ImageLoader {
                 let _ = self?.fallback.loadImageData(from: url, completion: completion)
             }
         }
-        return Task()
+        return task
     }
 }
 
@@ -55,6 +61,17 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         
         XCTAssertEqual(primaryLoader.loadedURLs, [url])
         XCTAssertEqual(fallbackLoader.loadedURLs, [url])
+    }
+    
+    func test_cancelLoadImageData_cancelsPrimaryLoaderTask() {
+        let url = anyURL()
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
+
+        let task = sut.loadImageData(from: url) { _ in }
+        task.cancel()
+
+        XCTAssertEqual(primaryLoader.cancelledURLs, [url], "Expected to cancel URL loading from primary loader")
+        XCTAssertTrue(fallbackLoader.cancelledURLs.isEmpty, "Expected no cancelled URLs in the fallback loader")
     }
     
     // MARK: - Helpers
@@ -87,16 +104,20 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     // MARK: - Stub
     
     private class ImageLoaderSpy: ImageLoader {
-        
-        private class Task: ImageLoaderTask { func cancel() {} }
+        private struct Task: ImageLoaderTask {
+            let callback: () -> Void
+            func cancel() { callback() }
+        }
         
         private var loadRequests = [(url: URL, completion: (ImageLoader.Result) -> Void )]()
-        
         var loadedURLs: [URL] {  return loadRequests.map { $0.url } }
+        private(set) var cancelledURLs = [URL]()
         
         func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
             loadRequests.append((url, completion))
-            return Task()
+            return Task { [weak self] in
+                self?.cancelledURLs.append(url)
+            }
         }
         
         func complete(with error: Error, at index: Int = 0) {
@@ -104,3 +125,4 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         }
     }
 }
+
