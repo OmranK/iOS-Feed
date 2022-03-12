@@ -5,40 +5,9 @@
 //  Created by Omran Khoja on 3/11/22.
 //
 
-import Foundation
 import XCTest
 import FeedCoreModule
-
-class ImageLoaderWithFallbackComposite: ImageLoader {
-    
-    private class TaskWrapper: ImageLoaderTask {
-        var wrapped: ImageLoaderTask?
-        func cancel() {
-            wrapped?.cancel()
-        }
-    }
-    
-    let primary: ImageLoader
-    let fallback: ImageLoader
-    
-    internal init(primary: ImageLoader, fallback: ImageLoader) {
-        self.primary = primary
-        self.fallback = fallback
-    }
-    
-    func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-        let task = TaskWrapper()
-        task.wrapped = primary.loadImageData(from: url) { [weak self] result in
-            switch result {
-            case .success:
-                completion(result)
-            case .failure:
-                task.wrapped = self?.fallback.loadImageData(from: url, completion: completion)
-            }
-        }
-        return task
-    }
-}
+import FeedApplication
 
 class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     
