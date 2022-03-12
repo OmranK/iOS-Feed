@@ -87,13 +87,25 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     }
     
     
-    func test_loadImageData_deliverssPrimaryImageDataOnPrimaryLoaderSuccess() {
+    func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
         let (sut, primaryLoader, _) = makeSUT()
     
         let primaryImageData = primaryData()
         
         expect(sut, toCompleteWith: .success(primaryImageData), when: {
             primaryLoader.complete(with: primaryImageData)
+        })
+    }
+    
+    
+    func test_loadImageData_deliversFallbackImageDataOnFallbackLoaderSuccessAfterPrimaryLoaderFailure() {
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
+    
+        let fallbackImageData = fallbackData()
+        
+        expect(sut, toCompleteWith: .success(fallbackImageData), when: {
+            primaryLoader.complete(with: anyNSError())
+            fallbackLoader.complete(with: fallbackImageData)
         })
     }
     
@@ -129,6 +141,10 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         return Data("primary data".utf8)
     }
     
+    private func fallbackData() -> Data {
+        return Data("fallback data".utf8)
+    }
+
     // MARK: - Stub
     
     private class ImageLoaderSpy: ImageLoader {
