@@ -42,7 +42,7 @@ class ImageLoaderWithFallbackComposite: ImageLoader {
 
 class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     
-    func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
+    func test_loadImageData_requestsPrimaryImageDataOnPrimaryLoaderSuccess() {
         let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
         let url = anyURL()
@@ -52,7 +52,7 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty)
     }
     
-    func test_loadImageData_deliversFallbackImageDataOnPrimaryLoaderFailure() {
+    func test_loadImageData_requestsFallbackImageDataOnPrimaryLoaderFailure() {
         let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
         let url = anyURL()
@@ -86,6 +86,17 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         XCTAssertEqual(fallbackLoader.cancelledURLs, [url], "Expected to cancel URL loading from fallback loader")
     }
     
+    
+    func test_loadImageData_deliverssPrimaryImageDataOnPrimaryLoaderSuccess() {
+        let (sut, primaryLoader, _) = makeSUT()
+    
+        let primaryImageData = primaryData()
+        
+        expect(sut, toCompleteWith: .success(primaryImageData), when: {
+            primaryLoader.complete(with: primaryImageData)
+        })
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ImageLoaderWithFallbackComposite, ImageLoaderSpy, ImageLoaderSpy) {
@@ -96,7 +107,7 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         return (sut, primaryLoader, fallbackLoader)
     }
     
-    private func expect(_ sut: ImageLoader, toCompleteWith expectedResult: ImageLoader.Result, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: ImageLoader, toCompleteWith expectedResult: ImageLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         
         _ = sut.loadImageData(from: anyURL()) { receivedResult in
@@ -110,7 +121,12 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
             }
             exp.fulfill()
         }
+        action()
         wait(for: [exp], timeout: 3.0)
+    }
+    
+    private func primaryData() -> Data {
+        return Data("primary data".utf8)
     }
     
     // MARK: - Stub
@@ -134,6 +150,10 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         
         func complete(with error: Error, at index: Int = 0) {
             loadRequests[index].completion(.failure(error))
+        }
+        
+        func complete(with data: Data, at index: Int = 0) {
+            loadRequests[index].completion(.success(data))
         }
     }
 }
