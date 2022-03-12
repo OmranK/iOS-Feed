@@ -37,30 +37,34 @@ class ImageLoaderWithFallbackComposite: ImageLoader {
 class ImageLoaderWithFallbackCompositeTests: XCTestCase {
     
     func test_loadImageData_deliversPrimaryImageDataOnPrimaryLoaderSuccess() {
-        let primaryImageData = primaryImageData()
-        let fallbackImageData = fallbackImageData()
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
-        let sut = makeSUT(primaryResult: .success(primaryImageData), fallbackResult: .success(fallbackImageData))
-
-        expect(sut, toCompleteWith: .success(primaryImageData))
+        let url = anyURL()
+        _ = sut.loadImageData(from: url) { _ in }
+        
+        XCTAssertEqual(primaryLoader.loadedURLs, [url])
+        XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty)
     }
     
     func test_loadImageData_deliversFallbackImageDataOnPrimaryLoaderFailure() {
-        let fallbackImageData = fallbackImageData()
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
-        let sut = makeSUT(primaryResult: .failure(anyNSError()), fallbackResult: .success(fallbackImageData))
+        let url = anyURL()
+        _ = sut.loadImageData(from: url) { _ in }
+        primaryLoader.complete(with: anyNSError())
         
-        expect(sut, toCompleteWith: .success(fallbackImageData))
+        XCTAssertEqual(primaryLoader.loadedURLs, [url])
+        XCTAssertEqual(fallbackLoader.loadedURLs, [url])
     }
     
     // MARK: - Helpers
     
-    private func makeSUT(primaryResult: ImageLoader.Result, fallbackResult: ImageLoader.Result, file: StaticString = #file, line: UInt = #line) -> ImageLoaderWithFallbackComposite {
-        let primaryLoader = ImageLoaderStub(result: primaryResult)
-        let fallbackLoader = ImageLoaderStub(result: fallbackResult)
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (ImageLoaderWithFallbackComposite, ImageLoaderSpy, ImageLoaderSpy) {
+        let primaryLoader = ImageLoaderSpy()
+        let fallbackLoader = ImageLoaderSpy()
         let sut = ImageLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
         trackForMemoryLeaks(sut, file: file, line: line)
-        return sut
+        return (sut, primaryLoader, fallbackLoader)
     }
     
     private func expect(_ sut: ImageLoader, toCompleteWith expectedResult: ImageLoader.Result, file: StaticString = #file, line: UInt = #line) {
@@ -80,41 +84,23 @@ class ImageLoaderWithFallbackCompositeTests: XCTestCase {
         wait(for: [exp], timeout: 3.0)
     }
     
-    private func primaryImageData() -> Data {
-        return UIImage.make(withColor: .red).pngData()!
-    }
-    
-    private func fallbackImageData() -> Data {
-        return UIImage.make(withColor: .blue).pngData()!
-    }
-    
     // MARK: - Stub
     
-    private class ImageLoaderStub: ImageLoader {
+    private class ImageLoaderSpy: ImageLoader {
         
         private class Task: ImageLoaderTask { func cancel() {} }
         
-        private let result: ImageLoader.Result
-        internal init(result: ImageLoader.Result) {
-            self.result = result
-        }
+        private var loadRequests = [(url: URL, completion: (ImageLoader.Result) -> Void )]()
+        
+        var loadedURLs: [URL] {  return loadRequests.map { $0.url } }
         
         func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-            completion(result)
+            loadRequests.append((url, completion))
             return Task()
         }
-    }
-}
-
-private extension UIImage {
-    static func make(withColor color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()!
-        context.setFillColor(color.cgColor)
-        context.fill(rect)
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return img!
+        
+        func complete(with error: Error, at index: Int = 0) {
+            loadRequests[index].completion(.failure(error))
+        }
     }
 }
