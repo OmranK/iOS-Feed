@@ -17,7 +17,7 @@
                BlueprintIdentifier = "B7C0EA36279E8F0700634EA7"
                BuildableName = "FeedCoreModule.framework"
                BlueprintName = "FeedCoreModule"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,21 +36,21 @@
             BlueprintIdentifier = "B7C0EA36279E8F0700634EA7"
             BuildableName = "FeedCoreModule.framework"
             BlueprintName = "FeedCoreModule"
-            ReferencedContainer = "container:FeedModules.xcodeproj">
+            ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
          </BuildableReference>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B767968027BE317900CC08A1"
             BuildableName = "FeediOS.framework"
             BlueprintName = "FeediOS"
-            ReferencedContainer = "container:FeedModules.xcodeproj">
+            ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
          </BuildableReference>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B7F52A3E27C5745600756ECA"
             BuildableName = "FeedPresentationModule.framework"
             BlueprintName = "FeedPresentationModule"
-            ReferencedContainer = "container:FeedModules.xcodeproj">
+            ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -62,7 +62,7 @@
                BlueprintIdentifier = "B72BDE0A27B22AC100C79E93"
                BuildableName = "FeedAPIEndToEndTests.xctest"
                BlueprintName = "FeedAPIEndToEndTests"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -73,7 +73,7 @@
                BlueprintIdentifier = "B7C0EA3E279E8F0700634EA7"
                BuildableName = "FeedCoreModuleTests.xctest"
                BlueprintName = "FeedCoreModuleTests"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -84,7 +84,7 @@
                BlueprintIdentifier = "B795B30627BC9DA700A7496A"
                BuildableName = "FeedCacheIntegrationTests.xctest"
                BlueprintName = "FeedCacheIntegrationTests"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -95,17 +95,29 @@
                BlueprintIdentifier = "B767968727BE317A00CC08A1"
                BuildableName = "FeediOSTests.xctest"
                BlueprintName = "FeediOSTests"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B7F52A4527C5745700756ECA"
                BuildableName = "FeedPresentationModuleTests.xctest"
                BlueprintName = "FeedPresentationModuleTests"
-               ReferencedContainer = "container:FeedModules.xcodeproj">
+               ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B7D8E69427DB122700B7AF4A"
+               BuildableName = "FeedApplicationTests.xctest"
+               BlueprintName = "FeedApplicationTests"
+               ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -133,7 +145,7 @@
             BlueprintIdentifier = "B7C0EA36279E8F0700634EA7"
             BuildableName = "FeedCoreModule.framework"
             BlueprintName = "FeedCoreModule"
-            ReferencedContainer = "container:FeedModules.xcodeproj">
+            ReferencedContainer = "container:FeedModules/FeedModules.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
