@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70D343E27DE8C5800269369 /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70D343D27DE8C5800269369 /* FeedLoaderCacheDecoratorTests.swift */; };
 		B717824E27DD411400B9B7E9 /* ImageLoaderWithFallbackComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = B717824D27DD411400B9B7E9 /* ImageLoaderWithFallbackComposite.swift */; };
 		B79AB9FA27DB135F0014048E /* FeedCoreModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F727DB135F0014048E /* FeedCoreModule.framework */; };
 		B79AB9FB27DB135F0014048E /* FeedCoreModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B79AB9F727DB135F0014048E /* FeedCoreModule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -61,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B70D343D27DE8C5800269369 /* FeedLoaderCacheDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecoratorTests.swift; sourceTree = "<group>"; };
 		B717824D27DD411400B9B7E9 /* ImageLoaderWithFallbackComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderWithFallbackComposite.swift; sourceTree = "<group>"; };
 		B79AB9F727DB135F0014048E /* FeedCoreModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeedCoreModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79AB9F827DB135F0014048E /* FeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 				B7D8E69927DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift */,
 				B79ABA0827DBF5B40014048E /* ImageLoaderWithFallbackCompositeTests.swift */,
 				B79ABA0C27DC07DE0014048E /* CompositeLoaderTestsHelpers.swift */,
+				B70D343D27DE8C5800269369 /* FeedLoaderCacheDecoratorTests.swift */,
 			);
 			path = FeedApplicationTests;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				B79ABA0927DBF5B40014048E /* ImageLoaderWithFallbackCompositeTests.swift in Sources */,
 				B79ABA0D27DC07DE0014048E /* CompositeLoaderTestsHelpers.swift in Sources */,
 				B7D8E69A27DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
+				B70D343E27DE8C5800269369 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
