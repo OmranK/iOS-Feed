@@ -5,33 +5,9 @@
 //  Created by Omran Khoja on 3/13/22.
 //
 
-import FeedCoreModule
 import XCTest
-
-protocol FeedCache {
-    typealias SaveResult = Result<Void, Error>
-    func save(_ feed: [FeedImage], completion: @escaping (SaveResult) -> Void)
-}
-
-
-class FeedLoaderCacheDecorator: FeedLoader {
-    let decoratee: FeedLoader
-    let cache: FeedCache
-    
-    init(decoratee: FeedLoader, cache: FeedCache) {
-        self.decoratee = decoratee
-        self.cache = cache
-    }
-    
-    func load(completion: @escaping (FeedLoader.Result) -> Void) {
-        decoratee.load { [weak self] result in
-            if let feed = try? result.get() {
-                self?.cache.save(feed) { _ in }
-            }
-            completion(result)
-        }
-    }
-}
+import FeedCoreModule
+import FeedApplication
 
 class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase  {
     
