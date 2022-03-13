@@ -17,7 +17,7 @@
                BlueprintIdentifier = "B7D8E67E27DB122100B7AF4A"
                BuildableName = "FeedApplication.app"
                BlueprintName = "FeedApplication"
-               ReferencedContainer = "container:FeedApplication.xcodeproj">
+               ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "B7D8E69427DB122700B7AF4A"
                BuildableName = "FeedApplicationTests.xctest"
                BlueprintName = "FeedApplicationTests"
-               ReferencedContainer = "container:FeedApplication.xcodeproj">
+               ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,7 +57,7 @@
             BlueprintIdentifier = "B7D8E67E27DB122100B7AF4A"
             BuildableName = "FeedApplication.app"
             BlueprintName = "FeedApplication"
-            ReferencedContainer = "container:FeedApplication.xcodeproj">
+            ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -74,7 +74,7 @@
             BlueprintIdentifier = "B7D8E67E27DB122100B7AF4A"
             BuildableName = "FeedApplication.app"
             BlueprintName = "FeedApplication"
-            ReferencedContainer = "container:FeedApplication.xcodeproj">
+            ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
