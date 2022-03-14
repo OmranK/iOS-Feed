@@ -7,30 +7,7 @@
 
 import XCTest
 import FeedCoreModule
-
-protocol ImageCache {
-    typealias Result = Swift.Result<Void, Error>
-    func save(_ data: Data, for url: URL, completion: @escaping (Result) -> Void)
-}
-
-class ImageLoaderCacheDecorator: ImageLoader {
-    let decoratee: ImageLoader
-    let cache: ImageCache
-    
-    internal init(decoratee: ImageLoader, cache: ImageCache) {
-        self.decoratee = decoratee
-        self.cache = cache
-    }
-    
-    func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-        return decoratee.loadImageData(from: url) { [weak self] result in
-            if let imageData = try? result.get() {
-                self?.cache.save(imageData, for: url) { _ in }
-            }
-            completion(result)
-        }
-    }
-}
+import FeedApplication
 
 class ImageLoaderCacheDecoratorTests: XCTestCase, ImageLoaderTestCase {
     
