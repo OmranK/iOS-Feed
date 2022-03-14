@@ -88,6 +88,18 @@ class ImageLoaderCacheDecoratorTests: XCTestCase, ImageLoaderTestCase {
         XCTAssertEqual(cache.messages, [.save(data: imageData, for: url)])
     }
     
+    func test_loadImageData_doesNotAttemptCacheingOnLoaderFailure() {
+        let cache = ImageCacheSpy()
+        let (sut, loader) = makeSUT(cache: cache)
+        
+        let url = anyURL()
+        let error = anyNSError()
+        let _ = sut.loadImageData(from: url) { _ in }
+        loader.complete(with: error)
+        
+        XCTAssertEqual(cache.messages, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(cache: ImageCacheSpy = .init(), file: StaticString = #file, line: UInt = #line) -> (sut: ImageLoaderCacheDecorator, loader: ImageLoaderSpy) {
