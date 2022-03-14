@@ -8,15 +8,27 @@
 import XCTest
 import FeedCoreModule
 
+protocol ImageCache {
+    typealias Result = Swift.Result<Void, Error>
+    func save(_ data: Data, for url: URL, completion: @escaping (Result) -> Void)
+}
+
 class ImageLoaderCacheDecorator: ImageLoader {
     let decoratee: ImageLoader
+    let cache: ImageCache
     
-    internal init(decoratee: ImageLoader) {
+    internal init(decoratee: ImageLoader, cache: ImageCache) {
         self.decoratee = decoratee
+        self.cache = cache
     }
     
     func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
-        return decoratee.loadImageData(from: url, completion: completion)
+        return decoratee.loadImageData(from: url) { [weak self] result in
+            if let imageData = try? result.get() {
+                self?.cache.save(imageData, for: url) { _ in }
+            }
+            completion(result)
+        }
     }
 }
 
@@ -64,11 +76,23 @@ class ImageLoaderCacheDecoratorTests: XCTestCase, ImageLoaderTestCase {
         }
     }
     
+    func test_loadImageData_cachesImageOnLoaderSuccess() {
+        let cache = ImageCacheSpy()
+        let (sut, loader) = makeSUT(cache: cache)
+        
+        let url = anyURL()
+        let imageData = anyData()
+        let _ = sut.loadImageData(from: url) { _ in }
+        loader.complete(with: imageData)
+        
+        XCTAssertEqual(cache.messages, [.save(data: imageData, for: url)])
+    }
+    
     // MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ImageLoaderCacheDecorator, loader: ImageLoaderSpy) {
+    private func makeSUT(cache: ImageCacheSpy = .init(), file: StaticString = #file, line: UInt = #line) -> (sut: ImageLoaderCacheDecorator, loader: ImageLoaderSpy) {
         let loader = ImageLoaderSpy()
-        let sut = ImageLoaderCacheDecorator(decoratee: loader)
+        let sut = ImageLoaderCacheDecorator(decoratee: loader, cache: cache)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
@@ -76,5 +100,18 @@ class ImageLoaderCacheDecoratorTests: XCTestCase, ImageLoaderTestCase {
     
     private func anyData() -> Data {
         return Data("data".utf8)
+    }
+
+    private class ImageCacheSpy: ImageCache {
+        private(set) var messages = [Message]()
+        
+        enum Message: Equatable {
+            case save(data: Data, for: URL)
+        }
+        
+        func save(_ data: Data, for url: URL, completion: @escaping (ImageCache.Result) -> Void) {
+            messages.append(.save(data: data, for: url))
+            completion(.success(()))
+        }
     }
 }
