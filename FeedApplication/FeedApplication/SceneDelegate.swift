@@ -7,9 +7,7 @@
 
 import UIKit
 import FeedCoreModule
-import FeedPresentationModule
 import FeediOS
-import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,7 +16,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
+        let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
+        let session = URLSession(configuration: .ephemeral)
+        let client = URLSessionHTTPClient(session: session)
+        let remoteFeedLoader = RemoteFeedLoader(url: url, client: client)
+        let remoteImageLoader = RemoteImageLoader(client: client)
         
+        window?.rootViewController =
+        FeedUIComposer.feedControllerComposedWith(
+            feedLoader: remoteFeedLoader,
+            imageLoader: remoteImageLoader)
     }
 }
 

@@ -33,7 +33,6 @@
 		B7D8E68F27DB122600B7AF4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7D8E68D27DB122600B7AF4A /* LaunchScreen.storyboard */; };
 		B7D8E69A27DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E69927DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		B7D8E6A427DB122700B7AF4A /* FeedApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E6A327DB122700B7AF4A /* FeedApplicationUITests.swift */; };
-		B7D8E6A627DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D8E6A527DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +97,6 @@
 		B7D8E69927DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 		B7D8E69F27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedApplicationUIAcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D8E6A327DB122700B7AF4A /* FeedApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApplicationUITests.swift; sourceTree = "<group>"; };
-		B7D8E6A527DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				B7D8E6A327DB122700B7AF4A /* FeedApplicationUITests.swift */,
-				B7D8E6A527DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift */,
 			);
 			path = FeedApplicationUIAcceptanceTests;
 			sourceTree = "<group>";
@@ -375,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7D8E6A427DB122700B7AF4A /* FeedApplicationUITests.swift in Sources */,
-				B7D8E6A627DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
