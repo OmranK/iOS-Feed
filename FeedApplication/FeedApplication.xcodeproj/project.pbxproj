@@ -96,7 +96,7 @@
 		B7D8E69027DB122600B7AF4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7D8E69527DB122700B7AF4A /* FeedApplicationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedApplicationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D8E69927DB122700B7AF4A /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
-		B7D8E69F27DB122700B7AF4A /* FeedApplicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedApplicationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7D8E69F27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FeedApplicationUIAcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D8E6A327DB122700B7AF4A /* FeedApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApplicationUITests.swift; sourceTree = "<group>"; };
 		B7D8E6A527DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,7 +158,7 @@
 			children = (
 				B7D8E68127DB122100B7AF4A /* FeedApplication */,
 				B7D8E69827DB122700B7AF4A /* FeedApplicationTests */,
-				B7D8E6A227DB122700B7AF4A /* FeedApplicationUITests */,
+				B7D8E6A227DB122700B7AF4A /* FeedApplicationUIAcceptanceTests */,
 				B7D8E68027DB122100B7AF4A /* Products */,
 				B79AB9F627DB135F0014048E /* Frameworks */,
 			);
@@ -169,7 +169,7 @@
 			children = (
 				B7D8E67F27DB122100B7AF4A /* FeedApplication.app */,
 				B7D8E69527DB122700B7AF4A /* FeedApplicationTests.xctest */,
-				B7D8E69F27DB122700B7AF4A /* FeedApplicationUITests.xctest */,
+				B7D8E69F27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,13 +203,13 @@
 			path = FeedApplicationTests;
 			sourceTree = "<group>";
 		};
-		B7D8E6A227DB122700B7AF4A /* FeedApplicationUITests */ = {
+		B7D8E6A227DB122700B7AF4A /* FeedApplicationUIAcceptanceTests */ = {
 			isa = PBXGroup;
 			children = (
 				B7D8E6A327DB122700B7AF4A /* FeedApplicationUITests.swift */,
 				B7D8E6A527DB122700B7AF4A /* FeedApplicationUITestsLaunchTests.swift */,
 			);
-			path = FeedApplicationUITests;
+			path = FeedApplicationUIAcceptanceTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,9 +251,9 @@
 			productReference = B7D8E69527DB122700B7AF4A /* FeedApplicationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B7D8E69E27DB122700B7AF4A /* FeedApplicationUITests */ = {
+		B7D8E69E27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B7D8E6AF27DB122700B7AF4A /* Build configuration list for PBXNativeTarget "FeedApplicationUITests" */;
+			buildConfigurationList = B7D8E6AF27DB122700B7AF4A /* Build configuration list for PBXNativeTarget "FeedApplicationUIAcceptanceTests" */;
 			buildPhases = (
 				B7D8E69B27DB122700B7AF4A /* Sources */,
 				B7D8E69C27DB122700B7AF4A /* Frameworks */,
@@ -264,9 +264,9 @@
 			dependencies = (
 				B7D8E6A127DB122700B7AF4A /* PBXTargetDependency */,
 			);
-			name = FeedApplicationUITests;
+			name = FeedApplicationUIAcceptanceTests;
 			productName = FeedApplicationUITests;
-			productReference = B7D8E69F27DB122700B7AF4A /* FeedApplicationUITests.xctest */;
+			productReference = B7D8E69F27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -307,7 +307,7 @@
 			targets = (
 				B7D8E67E27DB122100B7AF4A /* FeedApplication */,
 				B7D8E69427DB122700B7AF4A /* FeedApplicationTests */,
-				B7D8E69E27DB122700B7AF4A /* FeedApplicationUITests */,
+				B7D8E69E27DB122700B7AF4A /* FeedApplicationUIAcceptanceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -694,7 +694,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B7D8E6AF27DB122700B7AF4A /* Build configuration list for PBXNativeTarget "FeedApplicationUITests" */ = {
+		B7D8E6AF27DB122700B7AF4A /* Build configuration list for PBXNativeTarget "FeedApplicationUIAcceptanceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B7D8E6B027DB122700B7AF4A /* Debug */,
