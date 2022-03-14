@@ -9,7 +9,7 @@ import XCTest
 import FeedCoreModule
 import FeedApplication
 
-class ImageLoaderWithFallbackCompositeTests: XCTestCase {
+class ImageLoaderWithFallbackCompositeTests: XCTestCase, ImageLoaderTestCase {
     
     func test_loadImageData_requestsPrimaryImageDataOnPrimaryLoaderSuccess() {
         let (sut, primaryLoader, fallbackLoader) = makeSUT()

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70D344927DEB42700269369 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70D344827DEB42700269369 /* FeedCache.swift */; };
+		B70D345327DF02AD00269369 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70D345227DF02AC00269369 /* ImageCache.swift */; };
 		B70F34D027C67A0300E0FA6D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34CF27C67A0300E0FA6D /* ErrorView.swift */; };
 		B70F34D227C6929C00E0FA6D /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34D127C6929C00E0FA6D /* UIRefreshControl+Helpers.swift */; };
 		B70F34D527C698A900E0FA6D /* FeedPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F34D327C6988800E0FA6D /* FeedPresenterTests.swift */; };
@@ -199,6 +201,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B70D344827DEB42700269369 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
+		B70D345227DF02AC00269369 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		B70F34CF27C67A0300E0FA6D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B70F34D127C6929C00E0FA6D /* UIRefreshControl+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Helpers.swift"; sourceTree = "<group>"; };
 		B70F34D327C6988800E0FA6D /* FeedPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenterTests.swift; sourceTree = "<group>"; };
@@ -559,6 +563,8 @@
 				B7C0EA4F279E8F6E00634EA7 /* FeedImage.swift */,
 				B7C0EA51279E8FCF00634EA7 /* FeedLoader.swift */,
 				B71A7C3427C0B0140029195A /* ImageLoader.swift */,
+				B70D344827DEB42700269369 /* FeedCache.swift */,
+				B70D345227DF02AC00269369 /* ImageCache.swift */,
 			);
 			path = "Feed Feature";
 			sourceTree = "<group>";
@@ -1121,6 +1127,7 @@
 				B7C0EA5B279F72E900634EA7 /* RemoteFeedLoader.swift in Sources */,
 				B7F297CA27B6242F002FE92A /* FeedStore.xcdatamodeld in Sources */,
 				B7BE6ED327B4A26B0064B187 /* LocalFeedImage.swift in Sources */,
+				B70D345327DF02AD00269369 /* ImageCache.swift in Sources */,
 				B7D8E63727DAE71D00B7AF4A /* CareDataFeedStore+ImageStore.swift in Sources */,
 				B7BE6ECF27B494580064B187 /* FeedStore.swift in Sources */,
 				B7BE6ECB27B493B50064B187 /* LocalFeedLoader.swift in Sources */,
@@ -1129,6 +1136,7 @@
 				B72BDDFC27AE345E00C79E93 /* HTTPClient.swift in Sources */,
 				B7D8E60E27D99C3D00B7AF4A /* ImageLoader.swift in Sources */,
 				B7C0EA50279E8F6E00634EA7 /* FeedImage.swift in Sources */,
+				B70D344927DEB42700269369 /* FeedCache.swift in Sources */,
 				B72BDE0327AE46F100C79E93 /* URLSessionHTTPClient.swift in Sources */,
 				B7FAAE9027BC5AC5002B9D09 /* ManagedCache.swift in Sources */,
 				B7D8E62A27DADF6900B7AF4A /* LocalImageLoader.swift in Sources */,

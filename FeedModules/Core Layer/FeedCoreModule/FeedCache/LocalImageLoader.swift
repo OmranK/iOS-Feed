@@ -15,8 +15,8 @@ public final class LocalImageLoader {
     }
 }
 
-extension LocalImageLoader {
-    public typealias SaveResult = Result<Void, Error>
+extension LocalImageLoader: ImageCache {
+    public typealias SaveResult = ImageCache.Result
     
     public enum SaveError: Error {
         case failed
