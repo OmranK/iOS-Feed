@@ -20,9 +20,15 @@ public class ImageLoaderCacheDecorator: ImageLoader {
     public func loadImageData(from url: URL, completion: @escaping (ImageLoader.Result) -> Void) -> ImageLoaderTask {
         return decoratee.loadImageData(from: url) { [weak self] result in
             if let imageData = try? result.get() {
-                self?.cache.save(imageData, for: url) { _ in }
+                self?.cache.saveIgnoringResult(imageData, for: url)
             }
             completion(result)
         }
+    }
+}
+
+private extension ImageCache {
+    func saveIgnoringResult(_ imageData: Data, for url: URL) {
+        save(imageData, for: url) { _ in }
     }
 }
