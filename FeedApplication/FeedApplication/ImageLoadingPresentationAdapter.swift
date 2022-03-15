@@ -7,6 +7,7 @@
 
 import FeedCoreModule
 import FeedPresentationModule
+import FeediOS
 
 final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
     private let model: FeedImage

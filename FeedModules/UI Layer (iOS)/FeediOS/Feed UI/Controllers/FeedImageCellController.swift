@@ -8,17 +8,17 @@
 import UIKit
 import FeedPresentationModule
 
-protocol FeedImageCellControllerDelegate {
+public protocol FeedImageCellControllerDelegate {
     func didRequestLoadImage()
     func didCancelLoadImage()
 }
 
-final class FeedImageCellController: FeedImageView {
-    typealias Image = UIImage
+public final class FeedImageCellController: FeedImageView {
+    public typealias Image = UIImage
     private var cell: FeedImageCell?
     
     private let delegate: FeedImageCellControllerDelegate
-    init(delegate: FeedImageCellControllerDelegate) {
+    public init(delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
     }
     
@@ -28,7 +28,7 @@ final class FeedImageCellController: FeedImageView {
         return cell!
     }
     
-    func display(_ model: FeedImageViewVM<UIImage>) {
+    public func display(_ model: FeedImageViewVM<UIImage>) {
         cell?.locationContainer.isHidden = !model.hasLocation
         cell?.locationLabel.text = model.location
         cell?.descriptionLabel.text = model.description
