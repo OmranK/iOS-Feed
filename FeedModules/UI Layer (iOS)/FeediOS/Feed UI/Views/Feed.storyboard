@@ -19,28 +19,26 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4Z-hF-mA6" userLabel="Error Message">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSW-0M-uFt">
+                                    <rect key="frame" x="8" y="8" width="398" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
-                                    <state key="normal" title="Error label">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="hideMessageAnimated" destination="b1O-Fa-h9j" eventType="touchUpInside" id="hZe-n5-lYg"/>
-                                    </connections>
-                                </button>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" red="0.99951404330000004" green="0.41759261489999999" blue="0.4154433012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="p4Z-hF-mA6" secondAttribute="bottom" id="D2X-zd-eBy"/>
-                                <constraint firstItem="p4Z-hF-mA6" firstAttribute="top" secondItem="b1O-Fa-h9j" secondAttribute="top" id="nfK-pj-d4P"/>
-                                <constraint firstAttribute="trailing" secondItem="p4Z-hF-mA6" secondAttribute="trailing" id="wIP-UA-IhF"/>
-                                <constraint firstItem="p4Z-hF-mA6" firstAttribute="leading" secondItem="b1O-Fa-h9j" secondAttribute="leading" id="yhC-13-W8J"/>
+                                <constraint firstAttribute="bottom" secondItem="WSW-0M-uFt" secondAttribute="bottom" constant="8" id="JHK-TJ-Cwp"/>
+                                <constraint firstItem="WSW-0M-uFt" firstAttribute="centerY" secondItem="b1O-Fa-h9j" secondAttribute="centerY" id="KV3-c2-YE0"/>
+                                <constraint firstItem="WSW-0M-uFt" firstAttribute="centerX" secondItem="b1O-Fa-h9j" secondAttribute="centerX" id="Lxf-IZ-kG6"/>
+                                <constraint firstItem="WSW-0M-uFt" firstAttribute="top" secondItem="b1O-Fa-h9j" secondAttribute="top" constant="8" id="fxU-Za-GEt"/>
+                                <constraint firstItem="WSW-0M-uFt" firstAttribute="leading" secondItem="b1O-Fa-h9j" secondAttribute="leading" constant="8" id="gjS-Cc-2Dv"/>
+                                <constraint firstAttribute="trailing" secondItem="WSW-0M-uFt" secondAttribute="trailing" constant="8" id="hrd-QA-rhi"/>
                             </constraints>
                             <connections>
-                                <outlet property="button" destination="p4Z-hF-mA6" id="xME-Lh-1G0"/>
+                                <outlet property="label" destination="WSW-0M-uFt" id="NJa-tI-7Vw"/>
+                                <outletCollection property="gestureRecognizers" destination="cyB-qy-rWd" appends="YES" id="5iA-IL-QoR"/>
                             </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="6xO-d7-XfN">
@@ -173,6 +171,11 @@ Location</string>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXF-E3-seS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="cyB-qy-rWd">
+                    <connections>
+                        <action selector="hideMessageAnimated" destination="b1O-Fa-h9j" id="clk-YV-HLZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="486.95652173913049" y="-6.0267857142857144"/>
         </scene>
