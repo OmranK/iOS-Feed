@@ -12,7 +12,10 @@ import FeediOS
 // MARK: - Assertion Helpers
 
 extension FeedUIIntegrationTests {
+    
     func assertThat(_ sut: FeedViewController, isRendering feedImage: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+        sut.tableView.layoutIfNeeded()
+        RunLoop.current.run(until: Date())
         guard sut.numberOfRenderedFeedImageViews() == feedImage.count else {
             return XCTFail("Expected \(feedImage.count) views rendered got \(sut.numberOfRenderedFeedImageViews()) instead", file: file, line: line)
         }
@@ -20,6 +23,7 @@ extension FeedUIIntegrationTests {
         feedImage.enumerated().forEach { index, image in
             assertThat(sut, hasViewRenderCorrectlyFor: image, at: index, file: file, line: line)
         }
+        executeRunLoopToCleanUpReferences()
     }
     
     func assertThat(_ sut: FeedViewController, hasViewRenderCorrectlyFor feedImage: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
@@ -36,5 +40,9 @@ extension FeedUIIntegrationTests {
         XCTAssertEqual(cell.locationText, feedImage.location, "Expected location text to be \(String(describing: feedImage.location)) for image view at index (\(index))", file: file, line: line)
         
         XCTAssertEqual(cell.descriptionText, feedImage.description, "Expected description text to be \(String(describing: feedImage.description)) for image view at index (\(index))", file: file, line: line)
+    }
+    
+    private func executeRunLoopToCleanUpReferences() {
+        RunLoop.current.run(until: Date())
     }
 }
