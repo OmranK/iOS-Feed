@@ -26,6 +26,10 @@ extension FeedViewController {
         return tableView.numberOfRows(inSection: feedImagesSection)
     }
     
+    func renderedFeedImageData(at index: Int) -> Data? {
+        return simulateVisibleImageView(at: index)?.renderedImage
+    }
+    
     @discardableResult
     func simulateVisibleImageView(at index: Int) -> FeedImageCell? {
         return (feedImageView(at: index) as? FeedImageCell)!
