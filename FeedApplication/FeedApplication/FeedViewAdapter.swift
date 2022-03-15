@@ -8,6 +8,7 @@
 import UIKit
 import FeedCoreModule
 import FeedPresentationModule
+import FeediOS
 
 final class FeedViewAdapter: FeedView {
     private weak var feedController: FeedViewController?
@@ -19,11 +20,11 @@ final class FeedViewAdapter: FeedView {
     }
     
     func display(_ viewModel: FeedViewVM) {
-        feedController?.viewModel = viewModel.feed.map { model in
+        feedController?.display(viewModel.feed.map { model in
             let adapter = ImageLoadingPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
             let view = FeedImageCellController(delegate: adapter)
             adapter.presenter = FeedImagePresenter(view: WeakRefVirtualProxy(view), imageTransformer: UIImage.init)
             return view
-        }
+        })
     }
 }

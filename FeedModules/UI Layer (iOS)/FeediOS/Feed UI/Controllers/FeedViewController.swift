@@ -8,16 +8,16 @@
 import UIKit
 import FeedPresentationModule
 
-protocol FeedViewControllerDelegate {
+public protocol FeedViewControllerDelegate {
     func didRequestFeedRefresh()
 }
 
-final public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedLoadingErrorView {
+public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedLoadingErrorView {
 
-    var delegate: FeedViewControllerDelegate?
+    public var delegate: FeedViewControllerDelegate?
     @IBOutlet private(set) public var errorView: ErrorView?
     
-    var viewModel = [FeedImageCellController]() {
+    private var viewModel = [FeedImageCellController]() {
         didSet {
             self.tableView.reloadData()
         }
@@ -26,6 +26,10 @@ final public class FeedViewController: UITableViewController, UITableViewDataSou
     public override func viewDidLoad() {
         super.viewDidLoad()
         refresh()
+    }
+    
+    public func display(_ cellControllers: [FeedImageCellController]) {
+        viewModel = cellControllers
     }
     
     public func display(_ model: FeedLoadingViewVM) {

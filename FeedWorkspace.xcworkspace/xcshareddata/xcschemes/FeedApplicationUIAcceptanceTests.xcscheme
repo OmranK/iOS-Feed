@@ -17,7 +17,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B7D8E69E27DB122700B7AF4A"
-               BuildableName = "FeedApplicationUITests.xctest"
+               BuildableName = "FeedApplicationUIAcceptanceTests.xctest"
                BlueprintName = "FeedApplicationUIAcceptanceTests"
                ReferencedContainer = "container:FeedApplication/FeedApplication.xcodeproj">
             </BuildableReference>
