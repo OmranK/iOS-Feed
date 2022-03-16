@@ -14,24 +14,8 @@ final class FeedLoadingPresentationAdapter: FeedViewControllerDelegate {
     
     var presenter: FeedPresenter?
     
-//    private let feedLoader: FeedLoader
-//    init(feedLoader: FeedLoader) {
-//        self.feedLoader = feedLoader
-//    }
-//
-//    func didRequestFeedRefresh() {
-//        presenter?.didStartLoadingFeed()
-//        feedLoader.load { [weak self] result in
-//            switch result {
-//            case let .success(feed):
-//                self?.presenter?.didFinishLoadingFeed(feed: feed)
-//            case let .failure(error):
-//                self?.presenter?.didFinishLoadingFeed(with: error)
-//            }
-//        }
-//    }
+    // MARK: - Composition with Combine Framework + universal abstractions
     
-    // MARK: - Combine Alternative to composition
     private let feedLoader: () -> FeedLoader.Publisher
     private var cancellable: Cancellable?
     init(feedLoader: @escaping () -> FeedLoader.Publisher) {
@@ -51,4 +35,24 @@ final class FeedLoadingPresentationAdapter: FeedViewControllerDelegate {
             self?.presenter?.didFinishLoadingFeed(feed: feed)
         }
     }
+    
+    // MARK: - Composition with Design Patterns
+    
+//    private let feedLoader: FeedLoader
+//    init(feedLoader: FeedLoader) {
+//        self.feedLoader = feedLoader
+//    }
+//
+//    func didRequestFeedRefresh() {
+//        presenter?.didStartLoadingFeed()
+//        feedLoader.load { [weak self] result in
+//            switch result {
+//            case let .success(feed):
+//                self?.presenter?.didFinishLoadingFeed(feed: feed)
+//            case let .failure(error):
+//                self?.presenter?.didFinishLoadingFeed(with: error)
+//            }
+//        }
+//    }
+    
 }

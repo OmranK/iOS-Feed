@@ -16,6 +16,37 @@ final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedIma
     var presenter: FeedImagePresenter<View, Image>?
     private let model: FeedImage
     
+    // MARK: - Composition with Combine Framework + universal abstractions
+    
+    private let imageLoader: (URL) -> ImageLoader.Publisher
+    private var cancellable: Cancellable?
+    
+    init(model: FeedImage, imageLoader: @escaping (URL) -> ImageLoader.Publisher) {
+        self.model = model
+        self.imageLoader = imageLoader
+    }
+    
+    func didRequestLoadImage() {
+        presenter?.didStartLoadingImageData(for: model)
+        cancellable = imageLoader(model.url).sink(
+            receiveCompletion: { [weak self, model] completion in
+                switch completion {
+                case .finished:
+                    break
+                case let .failure(error):
+                    self?.presenter?.didFinishLoadingImageData(with: error, for: model)
+                }
+            }, receiveValue: { [weak self, model] data in
+                self?.presenter?.didFinishLoadingImageData(with: data, for: model)
+            })
+    }
+    
+    func didCancelLoadImage() {
+        cancellable?.cancel()
+    }
+    
+    // MARK: - Composition with Design Patterns
+    
 //    private let imageLoader: ImageLoader
 //    private var task: ImageLoaderTask?
     
@@ -39,35 +70,4 @@ final class ImageLoadingPresentationAdapter<View: FeedImageView, Image>: FeedIma
 //    func didCancelLoadImage() {
 //        task?.cancel()
 //    }
-    
-    
-    // MARK: - Combine Alternative to composition
-    
-    private let imageLoader: (URL) -> ImageLoader.Publisher
-    private var cancellable: Cancellable?
-    
-    init(model: FeedImage, imageLoader: @escaping (URL) -> ImageLoader.Publisher) {
-        self.model = model
-        self.imageLoader = imageLoader
-    }
-    
-    func didRequestLoadImage() {
-        presenter?.didStartLoadingImageData(for: model)
-        cancellable = imageLoader(model.url).sink(
-            receiveCompletion: { [weak self, model] completion in
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    self?.presenter?.didFinishLoadingImageData(with: error, for: model)
-                }
-            }, receiveValue: { [weak self, model] data in
-                self?.presenter?.didFinishLoadingImageData(with: data, for: model)
-            })
-            
-    }
-    
-    func didCancelLoadImage() {
-        cancellable?.cancel()
-    }
 }

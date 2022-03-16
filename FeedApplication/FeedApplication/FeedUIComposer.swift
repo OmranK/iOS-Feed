@@ -13,22 +13,7 @@ import FeediOS
 final public class FeedUIComposer {
     private init() {}
     
-//    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: ImageLoader) -> FeedViewController {
-//        let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
-//        let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
-//
-//        let presenter = FeedPresenter(
-//            feedView:  FeedViewAdapter(feedController: feedController, imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
-//            loadingView: WeakRefVirtualProxy(feedController),
-//            errorView: WeakRefVirtualProxy(feedController))
-//
-//        presentationAdapter.presenter = presenter
-//
-//        return feedController
-//    }
-//
-    
-    // MARK: - Combine Alternative to composition
+    // MARK: - Composition with Combine Framework + universal abstractions
     
     public static func feedControllerComposedWith(
         feedLoader: @escaping () -> FeedLoader.Publisher,
@@ -64,6 +49,26 @@ private extension FeedViewController {
         feedController.title = title
         return feedController
     }
+}
+
+extension FeedUIComposer {
+    
+    // MARK: - Composition with Design Patterns
+    
+//    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: ImageLoader) -> FeedViewController {
+//        let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
+//        let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
+//
+//        let presenter = FeedPresenter(
+//            feedView:  FeedViewAdapter(feedController: feedController, imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
+//            loadingView: WeakRefVirtualProxy(feedController),
+//            errorView: WeakRefVirtualProxy(feedController))
+//
+//        presentationAdapter.presenter = presenter
+//
+//        return feedController
+//    }
+    
 }
 
 

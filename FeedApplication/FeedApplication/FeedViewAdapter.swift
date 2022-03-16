@@ -13,24 +13,8 @@ import FeediOS
 
 final class FeedViewAdapter: FeedView {
     private weak var feedController: FeedViewController?
-//    private let imageLoader: ImageLoader
-//
-//    init(feedController: FeedViewController, imageLoader: ImageLoader){
-//        self.feedController = feedController
-//        self.imageLoader = imageLoader
-//    }
-//
-//    func display(_ viewModel: FeedViewVM) {
-//        feedController?.display(viewModel.feed.map { model in
-//            let adapter = ImageLoadingPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
-//            let view = FeedImageCellController(delegate: adapter)
-//            adapter.presenter = FeedImagePresenter(view: WeakRefVirtualProxy(view), imageTransformer: UIImage.init)
-//            return view
-//        })
-//    }
     
-    
-    // MARK: - Combine Alternative to composition
+    // MARK: - Composition with Combine Framework + universal abstractions
     
     private let imageLoader: (URL) -> ImageLoader.Publisher
     
@@ -48,4 +32,22 @@ final class FeedViewAdapter: FeedView {
         })
     }
     
+    // MARK: - Composition with Design Patterns
+    
+//    private let imageLoader: ImageLoader
+//
+//    init(feedController: FeedViewController, imageLoader: ImageLoader){
+//        self.feedController = feedController
+//        self.imageLoader = imageLoader
+//    }
+//
+//    func display(_ viewModel: FeedViewVM) {
+//        feedController?.display(viewModel.feed.map { model in
+//            let adapter = ImageLoadingPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
+//            let view = FeedImageCellController(delegate: adapter)
+//            adapter.presenter = FeedImagePresenter(view: WeakRefVirtualProxy(view), imageTransformer: UIImage.init)
+//            return view
+//        })
+//    }
+
 }
