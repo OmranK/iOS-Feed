@@ -13,12 +13,23 @@ import FeediOS
 final public class FeedUIComposer {
     private init() {}
     
-    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: ImageLoader) -> FeedViewController {
-        let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
-        let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
+    // MARK: - Composition with Combine Framework + universal abstractions
+    
+    public static func feedControllerComposedWith(
+        feedLoader: @escaping () -> FeedLoader.Publisher,
+        imageLoader: @escaping (URL) -> ImageLoader.Publisher) -> FeedViewController {
+        
+        let presentationAdapter = FeedLoadingPresentationAdapter(
+            feedLoader: { feedLoader().dispatchOnMainQueue() })
+        
+        let feedController = FeedViewController.makeWith(
+            delegate: presentationAdapter,
+            title: FeedPresenter.title)
         
         let presenter = FeedPresenter(
-            feedView:  FeedViewAdapter(feedController: feedController, imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
+            feedView:  FeedViewAdapter(
+                feedController: feedController,
+                imageLoader: { imageLoader($0).dispatchOnMainQueue() }),
             loadingView: WeakRefVirtualProxy(feedController),
             errorView: WeakRefVirtualProxy(feedController))
         
@@ -38,6 +49,26 @@ private extension FeedViewController {
         feedController.title = title
         return feedController
     }
+}
+
+extension FeedUIComposer {
+    
+    // MARK: - Composition with Design Patterns
+    
+//    public static func feedControllerComposedWith(feedLoader: FeedLoader, imageLoader: ImageLoader) -> FeedViewController {
+//        let presentationAdapter = FeedLoadingPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
+//        let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
+//
+//        let presenter = FeedPresenter(
+//            feedView:  FeedViewAdapter(feedController: feedController, imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
+//            loadingView: WeakRefVirtualProxy(feedController),
+//            errorView: WeakRefVirtualProxy(feedController))
+//
+//        presentationAdapter.presenter = presenter
+//
+//        return feedController
+//    }
+    
 }
 
 
